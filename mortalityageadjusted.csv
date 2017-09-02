@@ -1,0 +1,236 @@
+"Race recode (White, Black, Other)","Year of death","Age-Adjusted Rate","Count","Population"
+All races,1969-2014,11.3,1242864,11874641376
+All races,1969,11.9,16834,201174393
+All races,1970,11.9,17249,204000665
+All races,1971,11.9,17767,206828966
+All races,1972,12.0,18470,209286088
+All races,1973,12.0,18828,211360233
+All races,1974,11.8,19180,213343943
+All races,1975,11.7,19426,215467514
+All races,1976,12.0,20350,217564624
+All races,1977,12.0,20789,219762255
+All races,1978,12.2,21667,222097449
+All races,1979,12.2,22239,224570142
+All races,1980,12.2,22880,227225826
+All races,1981,12.2,23370,229466391
+All races,1982,12.2,24013,231665106
+All races,1983,12.4,24954,233792697
+All races,1984,12.4,25399,235825544
+All races,1985,12.4,25940,237924311
+All races,1986,12.7,27261,240133472
+All races,1987,12.7,27863,242289738
+All races,1988,13.0,28980,244499776
+All races,1989,13.5,30519,246819839
+All races,1990,14.0,32376,249622814
+All races,1991,14.2,33563,252980941
+All races,1992,14.2,34238,256514224
+All races,1993,14.2,34865,259918588
+All races,1994,14.0,34901,263125821
+All races,1995,13.5,34475,266278393
+All races,1996,13.1,34122,269394284
+All races,1997,12.5,32889,272646925
+All races,1998,12.0,32203,275854104
+All races,1999,11.6,31728,279040168
+All races,2000,11.2,31078,282162411
+All races,2001,10.9,30719,284968955
+All races,2002,10.7,30446,287625193
+All races,2003,10.2,29554,290107933
+All races,2004,9.9,29002,292805298
+All races,2005,9.7,28905,295516599
+All races,2006,9.3,28372,298379912
+All races,2007,9.4,29093,301231207
+All races,2008,9.0,28471,304093966
+All races,2009,8.7,28088,306771529
+All races,2010,8.6,28560,309346863
+All races,2011,8.3,27970,311718857
+All races,2012,7.9,27244,314102623
+All races,2013,7.8,27681,316427395
+All races,2014,7.8,28343,318907401
+White,1969-2014,10.5,1027706,9858711457
+White,1969,11.2,14365,176478713
+White,1970,11.1,14678,178657368
+White,1971,11.1,15083,180834779
+White,1972,11.2,15602,182666549
+White,1973,11.2,15969,184167209
+White,1974,11.0,16200,185569934
+White,1975,10.8,16340,187049241
+White,1976,11.2,17144,188521124
+White,1977,11.1,17481,190101582
+White,1978,11.3,18194,191796257
+White,1979,11.3,18654,193567593
+White,1980,11.3,19095,195107839
+White,1981,11.2,19405,196556476
+White,1982,11.3,20062,197955570
+White,1983,11.4,20784,199328900
+White,1984,11.4,21100,200612713
+White,1985,11.3,21470,201935763
+White,1986,11.7,22707,203335908
+White,1987,11.7,23169,204677253
+White,1988,12.0,24175,206037224
+White,1989,12.5,25469,207456203
+White,1990,12.9,26915,209304826
+White,1991,13.1,27971,211552344
+White,1992,13.1,28428,213891107
+White,1993,13.0,28847,216127383
+White,1994,12.9,28912,218237731
+White,1995,12.4,28495,220310591
+White,1996,12.0,28021,222339157
+White,1997,11.4,27051,224471055
+White,1998,11.0,26416,226571966
+White,1999,10.6,26004,228620435
+White,2000,10.2,25340,230482882
+White,2001,10.0,25066,232125650
+White,2002,9.8,24918,233651028
+White,2003,9.4,24232,235055034
+White,2004,9.1,23726,236598302
+White,2005,8.9,23597,238112319
+White,2006,8.6,23202,239727764
+White,2007,8.6,23666,241316565
+White,2008,8.4,23362,242891089
+White,2009,8.0,22777,244314613
+White,2010,8.0,23172,245679092
+White,2011,7.7,22728,246928968
+White,2012,7.3,22093,248158737
+White,2013,7.3,22549,249298948
+White,2014,7.3,23072,250529673
+Black,1969-2014,22.2,201504,1492548932
+Black,1969,21.5,2405,22267578
+Black,1970,21.5,2504,22703039
+Black,1971,21.7,2612,23131896
+Black,1972,22.3,2796,23525237
+Black,1973,22.0,2793,23861065
+Black,1974,21.8,2895,24204214
+Black,1975,22.3,3018,24584415
+Black,1976,22.3,3116,24950950
+Black,1977,22.4,3204,25304306
+Black,1978,23.0,3365,25664431
+Black,1979,23.2,3477,26067888
+Black,1980,24.0,3670,26772864
+Black,1981,24.5,3839,27135782
+Black,1982,23.8,3806,27509731
+Black,1983,24.6,4039,27869197
+Black,1984,24.8,4126,28214718
+Black,1985,25.1,4272,28571872
+Black,1986,25.0,4358,28946777
+Black,1987,25.3,4487,29329227
+Black,1988,25.4,4581,29727195
+Black,1989,26.1,4784,30146448
+Black,1990,27.9,5181,30648345
+Black,1991,27.9,5298,31290743
+Black,1992,28.3,5485,31979982
+Black,1993,28.8,5656,32634735
+Black,1994,28.2,5649,33258981
+Black,1995,27.4,5592,33847306
+Black,1996,27.6,5716,34415478
+Black,1997,25.8,5465,35007679
+Black,1998,25.3,5436,35594140
+Black,1999,24.4,5357,36173121
+Black,2000,23.9,5346,36728709
+Black,2001,23.4,5265,37249775
+Black,2002,22.4,5145,37748424
+Black,2003,20.9,4894,38209741
+Black,2004,20.3,4815,38738798
+Black,2005,19.7,4823,39280731
+Black,2006,18.8,4698,39857107
+Black,2007,19.2,4908,40451108
+Black,2008,17.3,4587,41048959
+Black,2009,17.5,4794,41632450
+Black,2010,17.1,4853,42200372
+Black,2011,15.8,4658,42722897
+Black,2012,15.1,4595,43252304
+Black,2013,14.2,4528,43772123
+Black,2014,14.0,4613,44316094
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1969-2014,5.2,13638,523380987
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1969,5.8,64,2428102
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1970,6.1,67,2640258
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1971,5.9,72,2862291
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1972,5.8,72,3094302
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1973,4.6,66,3331959
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1974,5.8,85,3569795
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1975,4.5,68,3833858
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1976,5.1,90,4092550
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1977,5.6,104,4356367
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1978,5.7,106,4636761
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1979,5.5,107,4934661
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1980,5.6,115,5345123
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1981,5.8,124,5774133
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1982,6.2,144,6199805
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1983,5.3,131,6594600
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1984,6.6,172,6998113
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1985,7.3,198,7416676
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1986,6.8,196,7850787
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1987,6.5,205,8283258
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1988,6.8,224,8735357
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1989,7.6,263,9217188
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1990,7.5,279,9669643
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1991,7.8,291,10137854
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1992,7.9,325,10643135
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1993,8.4,362,11156470
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1994,7.2,340,11629109
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1995,7.8,388,12120496
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1996,7.1,385,12639649
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1997,6.7,373,13168191
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1998,5.8,351,13687998
+"Other (American Indian/AK Native, Asian/Pacific Islander)",1999,5.9,367,14246612
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2000,5.6,392,14950820
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2001,5.3,388,15593530
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2002,4.7,383,16225741
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2003,5.1,428,16843158
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2004,5.2,461,17468198
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2005,5.0,485,18123549
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2006,4.6,472,18795041
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2007,4.8,519,19463534
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2008,4.5,522,20153918
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2009,4.2,517,20824466
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2010,4.1,535,21467399
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2011,4.2,584,22066992
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2012,3.7,556,22691582
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2013,3.8,604,23356324
+"Other (American Indian/AK Native, Asian/Pacific Islander)",2014,3.8,658,24061634
+Other unspecified (1978-1991),1969-2014,NA,16,0
+Other unspecified (1978-1991),1969,NA,NA,0
+Other unspecified (1978-1991),1970,NA,NA,0
+Other unspecified (1978-1991),1971,NA,NA,0
+Other unspecified (1978-1991),1972,NA,NA,0
+Other unspecified (1978-1991),1973,NA,NA,0
+Other unspecified (1978-1991),1974,NA,NA,0
+Other unspecified (1978-1991),1975,NA,NA,0
+Other unspecified (1978-1991),1976,NA,NA,0
+Other unspecified (1978-1991),1977,NA,NA,0
+Other unspecified (1978-1991),1978,NA,NA,0
+Other unspecified (1978-1991),1979,NA,NA,0
+Other unspecified (1978-1991),1980,NA,NA,0
+Other unspecified (1978-1991),1981,NA,NA,0
+Other unspecified (1978-1991),1982,NA,NA,0
+Other unspecified (1978-1991),1983,NA,NA,0
+Other unspecified (1978-1991),1984,NA,NA,0
+Other unspecified (1978-1991),1985,NA,NA,0
+Other unspecified (1978-1991),1986,NA,NA,0
+Other unspecified (1978-1991),1987,NA,NA,0
+Other unspecified (1978-1991),1988,NA,NA,0
+Other unspecified (1978-1991),1989,NA,NA,0
+Other unspecified (1978-1991),1990,NA,NA,0
+Other unspecified (1978-1991),1991,NA,NA,0
+Other unspecified (1978-1991),1992,NA,NA,0
+Other unspecified (1978-1991),1993,NA,NA,0
+Other unspecified (1978-1991),1994,NA,NA,0
+Other unspecified (1978-1991),1995,NA,NA,0
+Other unspecified (1978-1991),1996,NA,NA,0
+Other unspecified (1978-1991),1997,NA,NA,0
+Other unspecified (1978-1991),1998,NA,NA,0
+Other unspecified (1978-1991),1999,NA,NA,0
+Other unspecified (1978-1991),2000,NA,NA,0
+Other unspecified (1978-1991),2001,NA,NA,0
+Other unspecified (1978-1991),2002,NA,NA,0
+Other unspecified (1978-1991),2003,NA,NA,0
+Other unspecified (1978-1991),2004,NA,NA,0
+Other unspecified (1978-1991),2005,NA,NA,0
+Other unspecified (1978-1991),2006,NA,NA,0
+Other unspecified (1978-1991),2007,NA,NA,0
+Other unspecified (1978-1991),2008,NA,NA,0
+Other unspecified (1978-1991),2009,NA,NA,0
+Other unspecified (1978-1991),2010,NA,NA,0
+Other unspecified (1978-1991),2011,NA,NA,0
+Other unspecified (1978-1991),2012,NA,NA,0
+Other unspecified (1978-1991),2013,NA,NA,0
+Other unspecified (1978-1991),2014,NA,NA,0
