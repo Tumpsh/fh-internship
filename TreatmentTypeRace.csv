@@ -1,0 +1,529 @@
+"Race recode (White, Black, Other)","RT","RP","Year of diagnosis (1983-2004)","Age-Adjusted Rate","Count","Population"
+All races,RT,RP,1983,1.7,165,10751949
+All races,RT,RP,1984,2.0,196,10851660
+All races,RT,RP,1985,2.2,220,10963253
+All races,RT,RP,1986,2.6,261,11074773
+All races,RT,RP,1987,3.3,326,11186897
+All races,RT,RP,1988,4.3,426,11306487
+All races,RT,RP,1989,4.3,432,11424312
+All races,RT,RP,1990,5.3,545,11582818
+All races,RT,RP,1991,8.2,844,11754761
+All races,RT,RP,1992,9.6,990,11945461
+All races,RT,RP,1993,7.3,778,12121185
+All races,RT,RP,1994,5.0,536,12278910
+All races,RT,RP,1995,3.7,400,12443019
+All races,RT,RP,1996,4.0,435,12601642
+All races,RT,RP,1997,3.7,414,12762338
+All races,RT,RP,1998,2.4,275,12912848
+All races,RT,RP,1999,2.4,286,13049559
+All races,RT,RP,2000,2.5,299,13194149
+All races,RT,RP,2001,2.1,255,13338229
+All races,RT,RP,2002,2.3,291,13444462
+All races,RT,RP,2003,2.0,273,13551407
+All races,RT,RP,2004,2.0,277,13654541
+All races,RT,[OTHER],1983,17.1,1464,10751949
+All races,RT,[OTHER],1984,17.3,1488,10851660
+All races,RT,[OTHER],1985,18.5,1622,10963253
+All races,RT,[OTHER],1986,18.5,1648,11074773
+All races,RT,[OTHER],1987,24.8,2214,11186897
+All races,RT,[OTHER],1988,26.1,2307,11306487
+All races,RT,[OTHER],1989,28.0,2522,11424312
+All races,RT,[OTHER],1990,32.6,2954,11582818
+All races,RT,[OTHER],1991,44.9,4139,11754761
+All races,RT,[OTHER],1992,51.9,4968,11945461
+All races,RT,[OTHER],1993,44.8,4468,12121185
+All races,RT,[OTHER],1994,39.4,4044,12278910
+All races,RT,[OTHER],1995,38.4,4012,12443019
+All races,RT,[OTHER],1996,42.1,4422,12601642
+All races,RT,[OTHER],1997,48.1,5111,12762338
+All races,RT,[OTHER],1998,56.1,6026,12912848
+All races,RT,[OTHER],1999,62.0,6717,13049559
+All races,RT,[OTHER],2000,64.9,7125,13194149
+All races,RT,[OTHER],2001,68.4,7587,13338229
+All races,RT,[OTHER],2002,66.4,7488,13444462
+All races,RT,[OTHER],2003,60.8,6992,13551407
+All races,RT,[OTHER],2004,56.7,6633,13654541
+All races,[OTHER],RP,1983,5.8,562,10751949
+All races,[OTHER],RP,1984,6.6,642,10851660
+All races,[OTHER],RP,1985,9.1,900,10963253
+All races,[OTHER],RP,1986,11.6,1161,11074773
+All races,[OTHER],RP,1987,14.2,1421,11186897
+All races,[OTHER],RP,1988,18.1,1831,11306487
+All races,[OTHER],RP,1989,21.2,2184,11424312
+All races,[OTHER],RP,1990,30.7,3180,11582818
+All races,[OTHER],RP,1991,46.4,4853,11754761
+All races,[OTHER],RP,1992,56.8,6023,11945461
+All races,[OTHER],RP,1993,49.2,5285,12121185
+All races,[OTHER],RP,1994,44.6,4843,12278910
+All races,[OTHER],RP,1995,44.6,4877,12443019
+All races,[OTHER],RP,1996,43.7,4823,12601642
+All races,[OTHER],RP,1997,44.8,5026,12762338
+All races,[OTHER],RP,1998,41.1,4691,12912848
+All races,[OTHER],RP,1999,46.2,5377,13049559
+All races,[OTHER],RP,2000,43.7,5189,13194149
+All races,[OTHER],RP,2001,45.2,5509,13338229
+All races,[OTHER],RP,2002,44.5,5630,13444462
+All races,[OTHER],RP,2003,42.4,5569,13551407
+All races,[OTHER],RP,2004,42.3,5714,13654541
+All races,[OTHER],[OTHER],1983,54.6,3736,10751949
+All races,[OTHER],[OTHER],1984,52.2,3654,10851660
+All races,[OTHER],[OTHER],1985,50.4,3584,10963253
+All races,[OTHER],[OTHER],1986,50.3,3669,11074773
+All races,[OTHER],[OTHER],1987,54.1,4040,11186897
+All races,[OTHER],[OTHER],1988,49.0,3723,11306487
+All races,[OTHER],[OTHER],1989,49.0,3843,11424312
+All races,[OTHER],[OTHER],1990,53.4,4235,11582818
+All races,[OTHER],[OTHER],1991,56.3,4563,11754761
+All races,[OTHER],[OTHER],1992,60.8,5140,11945461
+All races,[OTHER],[OTHER],1993,58.5,5160,12121185
+All races,[OTHER],[OTHER],1994,55.7,5077,12278910
+All races,[OTHER],[OTHER],1995,54.3,5053,12443019
+All races,[OTHER],[OTHER],1996,54.5,5140,12601642
+All races,[OTHER],[OTHER],1997,55.3,5341,12762338
+All races,[OTHER],[OTHER],1998,50.1,4918,12912848
+All races,[OTHER],[OTHER],1999,52.7,5277,13049559
+All races,[OTHER],[OTHER],2000,53.9,5501,13194149
+All races,[OTHER],[OTHER],2001,53.3,5564,13338229
+All races,[OTHER],[OTHER],2002,52.8,5639,13444462
+All races,[OTHER],[OTHER],2003,48.7,5291,13551407
+All races,[OTHER],[OTHER],2004,45.1,5044,13654541
+White,RT,RP,1983,1.9,157,8883099
+White,RT,RP,1984,2.1,176,8932414
+White,RT,RP,1985,2.4,203,8990035
+White,RT,RP,1986,2.8,238,9048620
+White,RT,RP,1987,3.5,303,9105937
+White,RT,RP,1988,4.6,395,9171061
+White,RT,RP,1989,4.7,410,9232664
+White,RT,RP,1990,5.6,484,9324817
+White,RT,RP,1991,8.7,761,9430096
+White,RT,RP,1992,10.1,886,9546388
+White,RT,RP,1993,7.3,652,9645535
+White,RT,RP,1994,5.0,453,9726018
+White,RT,RP,1995,3.7,332,9814843
+White,RT,RP,1996,3.8,350,9898846
+White,RT,RP,1997,3.7,339,9985729
+White,RT,RP,1998,2.4,231,10066304
+White,RT,RP,1999,2.4,232,10135731
+White,RT,RP,2000,2.6,252,10200905
+White,RT,RP,2001,2.1,208,10280247
+White,RT,RP,2002,2.4,244,10332247
+White,RT,RP,2003,2.0,217,10386980
+White,RT,RP,2004,2.0,221,10440355
+White,RT,[OTHER],1983,17.5,1305,8883099
+White,RT,[OTHER],1984,17.7,1318,8932414
+White,RT,[OTHER],1985,18.9,1426,8990035
+White,RT,[OTHER],1986,18.8,1436,9048620
+White,RT,[OTHER],1987,25.5,1957,9105937
+White,RT,[OTHER],1988,27.0,2051,9171061
+White,RT,[OTHER],1989,28.8,2213,9232664
+White,RT,[OTHER],1990,33.2,2575,9324817
+White,RT,[OTHER],1991,45.4,3581,9430096
+White,RT,[OTHER],1992,52.0,4249,9546388
+White,RT,[OTHER],1993,43.5,3692,9645535
+White,RT,[OTHER],1994,37.5,3264,9726018
+White,RT,[OTHER],1995,36.4,3212,9814843
+White,RT,[OTHER],1996,40.2,3554,9898846
+White,RT,[OTHER],1997,46.9,4178,9985729
+White,RT,[OTHER],1998,54.2,4864,10066304
+White,RT,[OTHER],1999,60.1,5426,10135731
+White,RT,[OTHER],2000,62.6,5691,10200905
+White,RT,[OTHER],2001,67.0,6133,10280247
+White,RT,[OTHER],2002,65.3,6052,10332247
+White,RT,[OTHER],2003,59.1,5551,10386980
+White,RT,[OTHER],2004,54.7,5221,10440355
+White,[OTHER],RP,1983,6.1,515,8883099
+White,[OTHER],RP,1984,6.9,586,8932414
+White,[OTHER],RP,1985,9.7,830,8990035
+White,[OTHER],RP,1986,12.5,1066,9048620
+White,[OTHER],RP,1987,15.2,1304,9105937
+White,[OTHER],RP,1988,19.5,1689,9171061
+White,[OTHER],RP,1989,22.9,2005,9232664
+White,[OTHER],RP,1990,32.8,2890,9324817
+White,[OTHER],RP,1991,49.7,4415,9430096
+White,[OTHER],RP,1992,59.9,5377,9546388
+White,[OTHER],RP,1993,50.9,4602,9645535
+White,[OTHER],RP,1994,46.0,4184,9726018
+White,[OTHER],RP,1995,46.2,4224,9814843
+White,[OTHER],RP,1996,45.2,4149,9898846
+White,[OTHER],RP,1997,46.4,4307,9985729
+White,[OTHER],RP,1998,42.3,3989,10066304
+White,[OTHER],RP,1999,47.2,4516,10135731
+White,[OTHER],RP,2000,45.4,4413,10200905
+White,[OTHER],RP,2001,47.0,4669,10280247
+White,[OTHER],RP,2002,46.1,4753,10332247
+White,[OTHER],RP,2003,43.7,4653,10386980
+White,[OTHER],RP,2004,43.9,4804,10440355
+White,[OTHER],[OTHER],1983,54.1,3223,8883099
+White,[OTHER],[OTHER],1984,52.0,3144,8932414
+White,[OTHER],[OTHER],1985,49.5,3046,8990035
+White,[OTHER],[OTHER],1986,49.7,3124,9048620
+White,[OTHER],[OTHER],1987,53.9,3463,9105937
+White,[OTHER],[OTHER],1988,48.8,3177,9171061
+White,[OTHER],[OTHER],1989,48.4,3245,9232664
+White,[OTHER],[OTHER],1990,53.4,3637,9324817
+White,[OTHER],[OTHER],1991,55.4,3847,9430096
+White,[OTHER],[OTHER],1992,60.2,4351,9546388
+White,[OTHER],[OTHER],1993,56.0,4211,9645535
+White,[OTHER],[OTHER],1994,53.6,4147,9726018
+White,[OTHER],[OTHER],1995,52.0,4104,9814843
+White,[OTHER],[OTHER],1996,52.1,4146,9898846
+White,[OTHER],[OTHER],1997,53.0,4321,9985729
+White,[OTHER],[OTHER],1998,48.2,3990,10066304
+White,[OTHER],[OTHER],1999,50.6,4251,10135731
+White,[OTHER],[OTHER],2000,51.6,4394,10200905
+White,[OTHER],[OTHER],2001,51.4,4470,10280247
+White,[OTHER],[OTHER],2002,49.8,4410,10332247
+White,[OTHER],[OTHER],2003,45.9,4116,10386980
+White,[OTHER],[OTHER],2004,42.3,3892,10440355
+Black,RT,RP,1983,0.6,4,1071938
+Black,RT,RP,1984,2.1,15,1090456
+Black,RT,RP,1985,1.5,11,1113538
+Black,RT,RP,1986,1.7,13,1136045
+Black,RT,RP,1987,2.1,15,1158940
+Black,RT,RP,1988,3.2,24,1180829
+Black,RT,RP,1989,2.2,15,1203715
+Black,RT,RP,1990,4.6,36,1235401
+Black,RT,RP,1991,8.1,61,1265659
+Black,RT,RP,1992,10.0,76,1297775
+Black,RT,RP,1993,9.8,77,1328460
+Black,RT,RP,1994,6.1,50,1360001
+Black,RT,RP,1995,5.7,49,1391352
+Black,RT,RP,1996,6.5,53,1423322
+Black,RT,RP,1997,5.8,52,1454831
+Black,RT,RP,1998,2.6,25,1487451
+Black,RT,RP,1999,3.1,31,1520105
+Black,RT,RP,2000,2.8,28,1554071
+Black,RT,RP,2001,2.3,25,1581235
+Black,RT,RP,2002,3.1,34,1603194
+Black,RT,RP,2003,3.8,45,1623732
+Black,RT,RP,2004,2.7,35,1644666
+Black,RT,[OTHER],1983,17.2,111,1071938
+Black,RT,[OTHER],1984,20.1,123,1090456
+Black,RT,[OTHER],1985,21.1,138,1113538
+Black,RT,[OTHER],1986,23.0,153,1136045
+Black,RT,[OTHER],1987,26.5,178,1158940
+Black,RT,[OTHER],1988,25.3,161,1180829
+Black,RT,[OTHER],1989,30.3,203,1203715
+Black,RT,[OTHER],1990,35.7,244,1235401
+Black,RT,[OTHER],1991,54.9,363,1265659
+Black,RT,[OTHER],1992,70.3,484,1297775
+Black,RT,[OTHER],1993,74.1,527,1328460
+Black,RT,[OTHER],1994,72.3,545,1360001
+Black,RT,[OTHER],1995,69.9,542,1391352
+Black,RT,[OTHER],1996,77.6,602,1423322
+Black,RT,[OTHER],1997,80.1,635,1454831
+Black,RT,[OTHER],1998,97.5,792,1487451
+Black,RT,[OTHER],1999,95.3,801,1520105
+Black,RT,[OTHER],2000,104.8,913,1554071
+Black,RT,[OTHER],2001,100.0,894,1581235
+Black,RT,[OTHER],2002,102.9,935,1603194
+Black,RT,[OTHER],2003,94.1,907,1623732
+Black,RT,[OTHER],2004,92.0,889,1644666
+Black,[OTHER],RP,1983,5.4,33,1071938
+Black,[OTHER],RP,1984,6.8,46,1090456
+Black,[OTHER],RP,1985,7.3,51,1113538
+Black,[OTHER],RP,1986,9.0,69,1136045
+Black,[OTHER],RP,1987,11.6,82,1158940
+Black,[OTHER],RP,1988,13.2,99,1180829
+Black,[OTHER],RP,1989,13.5,107,1203715
+Black,[OTHER],RP,1990,22.7,179,1235401
+Black,[OTHER],RP,1991,35.0,277,1265659
+Black,[OTHER],RP,1992,50.1,400,1297775
+Black,[OTHER],RP,1993,57.6,474,1328460
+Black,[OTHER],RP,1994,53.3,455,1360001
+Black,[OTHER],RP,1995,54.8,475,1391352
+Black,[OTHER],RP,1996,55.5,495,1423322
+Black,[OTHER],RP,1997,55.4,510,1454831
+Black,[OTHER],RP,1998,53.9,511,1487451
+Black,[OTHER],RP,1999,61.8,609,1520105
+Black,[OTHER],RP,2000,55.6,566,1554071
+Black,[OTHER],RP,2001,54.8,593,1581235
+Black,[OTHER],RP,2002,54.9,619,1603194
+Black,[OTHER],RP,2003,52.9,622,1623732
+Black,[OTHER],RP,2004,46.4,569,1644666
+Black,[OTHER],[OTHER],1983,83.1,403,1071938
+Black,[OTHER],[OTHER],1984,78.7,391,1090456
+Black,[OTHER],[OTHER],1985,75.9,389,1113538
+Black,[OTHER],[OTHER],1986,78.4,406,1136045
+Black,[OTHER],[OTHER],1987,81.1,427,1158940
+Black,[OTHER],[OTHER],1988,75.9,413,1180829
+Black,[OTHER],[OTHER],1989,72.0,403,1203715
+Black,[OTHER],[OTHER],1990,75.3,413,1235401
+Black,[OTHER],[OTHER],1991,85.1,476,1265659
+Black,[OTHER],[OTHER],1992,90.5,528,1297775
+Black,[OTHER],[OTHER],1993,101.0,626,1328460
+Black,[OTHER],[OTHER],1994,94.4,607,1360001
+Black,[OTHER],[OTHER],1995,88.9,583,1391352
+Black,[OTHER],[OTHER],1996,93.0,616,1423322
+Black,[OTHER],[OTHER],1997,94.5,645,1454831
+Black,[OTHER],[OTHER],1998,89.1,608,1487451
+Black,[OTHER],[OTHER],1999,83.7,602,1520105
+Black,[OTHER],[OTHER],2000,92.5,683,1554071
+Black,[OTHER],[OTHER],2001,81.3,624,1581235
+Black,[OTHER],[OTHER],2002,95.2,746,1603194
+Black,[OTHER],[OTHER],2003,76.0,630,1623732
+Black,[OTHER],[OTHER],2004,71.5,621,1644666
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1983,0.6,4,796912
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1984,0.7,5,828790
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1985,0.7,5,859680
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1986,1.4,10,890108
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1987,1.2,8,922020
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1988,1.0,7,954597
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1989,1.0,7,987933
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1990,3.1,25,1022600
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1991,2.7,21,1059006
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1992,3.5,28,1101298
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1993,5.4,47,1147190
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1994,3.6,32,1192891
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1995,1.9,18,1236824
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1996,3.2,31,1279474
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1997,2.3,23,1321778
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1998,1.7,18,1359093
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,1999,1.9,21,1393723
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,2000,1.6,18,1439173
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,2001,1.8,22,1476747
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,2002,1.0,13,1509021
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,2003,0.9,11,1540695
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,RP,2004,1.3,18,1569520
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1983,9.6,48,796912
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1984,9.4,45,828790
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1985,10.4,57,859680
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1986,9.5,57,890108
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1987,12.3,78,922020
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1988,14.9,94,954597
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1989,15.7,104,987933
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1990,21.5,133,1022600
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1991,27.7,188,1059006
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1992,31.7,226,1101298
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1993,31.2,239,1147190
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1994,28.0,226,1192891
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1995,28.5,244,1236824
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1996,28.0,247,1279474
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1997,30.2,278,1321778
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1998,33.0,315,1359093
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],1999,43.8,432,1393723
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],2000,47.9,484,1439173
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],2001,49.0,517,1476747
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],2002,42.5,461,1509021
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],2003,44.1,495,1540695
+"Other (American Indian/AK Native, Asian/Pacific Islander)",RT,[OTHER],2004,41.0,472,1569520
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1983,2.2,12,796912
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1984,1.6,10,828790
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1985,3.2,19,859680
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1986,4.0,26,890108
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1987,4.2,30,922020
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1988,6.2,43,954597
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1989,9.4,71,987933
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1990,13.7,109,1022600
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1991,19.0,152,1059006
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1992,28.0,237,1101298
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1993,21.9,195,1147190
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1994,21.1,195,1192891
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1995,17.3,165,1236824
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1996,15.3,151,1279474
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1997,18.1,184,1321778
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1998,14.4,153,1359093
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,1999,18.4,199,1393723
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,2000,15.4,173,1439173
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,2001,17.7,210,1476747
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,2002,17.6,218,1509021
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,2003,17.6,225,1540695
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],RP,2004,18.9,254,1569520
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1983,29.1,109,796912
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1984,25.7,117,828790
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1985,34.0,144,859680
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1986,28.8,135,890108
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1987,29.3,144,922020
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1988,24.5,130,954597
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1989,34.0,190,987933
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1990,33.1,182,1022600
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1991,39.2,225,1059006
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1992,38.2,236,1101298
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1993,42.6,280,1147190
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1994,40.4,286,1192891
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1995,40.3,297,1236824
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1996,39.0,303,1279474
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1997,33.5,267,1321778
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1998,26.7,224,1359093
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],1999,33.0,280,1393723
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],2000,32.2,295,1439173
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],2001,31.1,299,1476747
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],2002,28.0,279,1509021
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],2003,30.5,313,1540695
+"Other (American Indian/AK Native, Asian/Pacific Islander)",[OTHER],[OTHER],2004,31.3,343,1569520
+Other unspecified (1991+),RT,RP,1983,NA,0,0
+Other unspecified (1991+),RT,RP,1984,NA,0,0
+Other unspecified (1991+),RT,RP,1985,NA,0,0
+Other unspecified (1991+),RT,RP,1986,NA,0,0
+Other unspecified (1991+),RT,RP,1987,NA,0,0
+Other unspecified (1991+),RT,RP,1988,NA,0,0
+Other unspecified (1991+),RT,RP,1989,NA,0,0
+Other unspecified (1991+),RT,RP,1990,NA,0,0
+Other unspecified (1991+),RT,RP,1991,NA,0,0
+Other unspecified (1991+),RT,RP,1992,NA,0,0
+Other unspecified (1991+),RT,RP,1993,NA,2,0
+Other unspecified (1991+),RT,RP,1994,NA,1,0
+Other unspecified (1991+),RT,RP,1995,NA,1,0
+Other unspecified (1991+),RT,RP,1996,NA,1,0
+Other unspecified (1991+),RT,RP,1997,NA,0,0
+Other unspecified (1991+),RT,RP,1998,NA,0,0
+Other unspecified (1991+),RT,RP,1999,NA,0,0
+Other unspecified (1991+),RT,RP,2000,NA,1,0
+Other unspecified (1991+),RT,RP,2001,NA,0,0
+Other unspecified (1991+),RT,RP,2002,NA,0,0
+Other unspecified (1991+),RT,RP,2003,NA,0,0
+Other unspecified (1991+),RT,RP,2004,NA,0,0
+Other unspecified (1991+),RT,[OTHER],1983,NA,0,0
+Other unspecified (1991+),RT,[OTHER],1984,NA,0,0
+Other unspecified (1991+),RT,[OTHER],1985,NA,0,0
+Other unspecified (1991+),RT,[OTHER],1986,NA,0,0
+Other unspecified (1991+),RT,[OTHER],1987,NA,0,0
+Other unspecified (1991+),RT,[OTHER],1988,NA,0,0
+Other unspecified (1991+),RT,[OTHER],1989,NA,0,0
+Other unspecified (1991+),RT,[OTHER],1990,NA,0,0
+Other unspecified (1991+),RT,[OTHER],1991,NA,0,0
+Other unspecified (1991+),RT,[OTHER],1992,NA,2,0
+Other unspecified (1991+),RT,[OTHER],1993,NA,1,0
+Other unspecified (1991+),RT,[OTHER],1994,NA,2,0
+Other unspecified (1991+),RT,[OTHER],1995,NA,2,0
+Other unspecified (1991+),RT,[OTHER],1996,NA,0,0
+Other unspecified (1991+),RT,[OTHER],1997,NA,1,0
+Other unspecified (1991+),RT,[OTHER],1998,NA,4,0
+Other unspecified (1991+),RT,[OTHER],1999,NA,10,0
+Other unspecified (1991+),RT,[OTHER],2000,NA,3,0
+Other unspecified (1991+),RT,[OTHER],2001,NA,15,0
+Other unspecified (1991+),RT,[OTHER],2002,NA,11,0
+Other unspecified (1991+),RT,[OTHER],2003,NA,11,0
+Other unspecified (1991+),RT,[OTHER],2004,NA,13,0
+Other unspecified (1991+),[OTHER],RP,1983,NA,0,0
+Other unspecified (1991+),[OTHER],RP,1984,NA,0,0
+Other unspecified (1991+),[OTHER],RP,1985,NA,0,0
+Other unspecified (1991+),[OTHER],RP,1986,NA,0,0
+Other unspecified (1991+),[OTHER],RP,1987,NA,0,0
+Other unspecified (1991+),[OTHER],RP,1988,NA,0,0
+Other unspecified (1991+),[OTHER],RP,1989,NA,0,0
+Other unspecified (1991+),[OTHER],RP,1990,NA,0,0
+Other unspecified (1991+),[OTHER],RP,1991,NA,0,0
+Other unspecified (1991+),[OTHER],RP,1992,NA,3,0
+Other unspecified (1991+),[OTHER],RP,1993,NA,3,0
+Other unspecified (1991+),[OTHER],RP,1994,NA,0,0
+Other unspecified (1991+),[OTHER],RP,1995,NA,2,0
+Other unspecified (1991+),[OTHER],RP,1996,NA,2,0
+Other unspecified (1991+),[OTHER],RP,1997,NA,4,0
+Other unspecified (1991+),[OTHER],RP,1998,NA,8,0
+Other unspecified (1991+),[OTHER],RP,1999,NA,8,0
+Other unspecified (1991+),[OTHER],RP,2000,NA,3,0
+Other unspecified (1991+),[OTHER],RP,2001,NA,11,0
+Other unspecified (1991+),[OTHER],RP,2002,NA,15,0
+Other unspecified (1991+),[OTHER],RP,2003,NA,17,0
+Other unspecified (1991+),[OTHER],RP,2004,NA,23,0
+Other unspecified (1991+),[OTHER],[OTHER],1983,NA,0,0
+Other unspecified (1991+),[OTHER],[OTHER],1984,NA,0,0
+Other unspecified (1991+),[OTHER],[OTHER],1985,NA,0,0
+Other unspecified (1991+),[OTHER],[OTHER],1986,NA,0,0
+Other unspecified (1991+),[OTHER],[OTHER],1987,NA,0,0
+Other unspecified (1991+),[OTHER],[OTHER],1988,NA,0,0
+Other unspecified (1991+),[OTHER],[OTHER],1989,NA,0,0
+Other unspecified (1991+),[OTHER],[OTHER],1990,NA,0,0
+Other unspecified (1991+),[OTHER],[OTHER],1991,NA,2,0
+Other unspecified (1991+),[OTHER],[OTHER],1992,NA,0,0
+Other unspecified (1991+),[OTHER],[OTHER],1993,NA,3,0
+Other unspecified (1991+),[OTHER],[OTHER],1994,NA,4,0
+Other unspecified (1991+),[OTHER],[OTHER],1995,NA,4,0
+Other unspecified (1991+),[OTHER],[OTHER],1996,NA,2,0
+Other unspecified (1991+),[OTHER],[OTHER],1997,NA,5,0
+Other unspecified (1991+),[OTHER],[OTHER],1998,NA,13,0
+Other unspecified (1991+),[OTHER],[OTHER],1999,NA,12,0
+Other unspecified (1991+),[OTHER],[OTHER],2000,NA,2,0
+Other unspecified (1991+),[OTHER],[OTHER],2001,NA,8,0
+Other unspecified (1991+),[OTHER],[OTHER],2002,NA,7,0
+Other unspecified (1991+),[OTHER],[OTHER],2003,NA,15,0
+Other unspecified (1991+),[OTHER],[OTHER],2004,NA,11,0
+Unknown,RT,RP,1983,NA,0,0
+Unknown,RT,RP,1984,NA,0,0
+Unknown,RT,RP,1985,NA,1,0
+Unknown,RT,RP,1986,NA,0,0
+Unknown,RT,RP,1987,NA,0,0
+Unknown,RT,RP,1988,NA,0,0
+Unknown,RT,RP,1989,NA,0,0
+Unknown,RT,RP,1990,NA,0,0
+Unknown,RT,RP,1991,NA,1,0
+Unknown,RT,RP,1992,NA,0,0
+Unknown,RT,RP,1993,NA,0,0
+Unknown,RT,RP,1994,NA,0,0
+Unknown,RT,RP,1995,NA,0,0
+Unknown,RT,RP,1996,NA,0,0
+Unknown,RT,RP,1997,NA,0,0
+Unknown,RT,RP,1998,NA,1,0
+Unknown,RT,RP,1999,NA,2,0
+Unknown,RT,RP,2000,NA,0,0
+Unknown,RT,RP,2001,NA,0,0
+Unknown,RT,RP,2002,NA,0,0
+Unknown,RT,RP,2003,NA,0,0
+Unknown,RT,RP,2004,NA,3,0
+Unknown,RT,[OTHER],1983,NA,0,0
+Unknown,RT,[OTHER],1984,NA,2,0
+Unknown,RT,[OTHER],1985,NA,1,0
+Unknown,RT,[OTHER],1986,NA,2,0
+Unknown,RT,[OTHER],1987,NA,1,0
+Unknown,RT,[OTHER],1988,NA,1,0
+Unknown,RT,[OTHER],1989,NA,2,0
+Unknown,RT,[OTHER],1990,NA,2,0
+Unknown,RT,[OTHER],1991,NA,7,0
+Unknown,RT,[OTHER],1992,NA,7,0
+Unknown,RT,[OTHER],1993,NA,9,0
+Unknown,RT,[OTHER],1994,NA,7,0
+Unknown,RT,[OTHER],1995,NA,12,0
+Unknown,RT,[OTHER],1996,NA,19,0
+Unknown,RT,[OTHER],1997,NA,19,0
+Unknown,RT,[OTHER],1998,NA,51,0
+Unknown,RT,[OTHER],1999,NA,48,0
+Unknown,RT,[OTHER],2000,NA,34,0
+Unknown,RT,[OTHER],2001,NA,28,0
+Unknown,RT,[OTHER],2002,NA,29,0
+Unknown,RT,[OTHER],2003,NA,28,0
+Unknown,RT,[OTHER],2004,NA,38,0
+Unknown,[OTHER],RP,1983,NA,2,0
+Unknown,[OTHER],RP,1984,NA,0,0
+Unknown,[OTHER],RP,1985,NA,0,0
+Unknown,[OTHER],RP,1986,NA,0,0
+Unknown,[OTHER],RP,1987,NA,5,0
+Unknown,[OTHER],RP,1988,NA,0,0
+Unknown,[OTHER],RP,1989,NA,1,0
+Unknown,[OTHER],RP,1990,NA,2,0
+Unknown,[OTHER],RP,1991,NA,9,0
+Unknown,[OTHER],RP,1992,NA,6,0
+Unknown,[OTHER],RP,1993,NA,11,0
+Unknown,[OTHER],RP,1994,NA,9,0
+Unknown,[OTHER],RP,1995,NA,11,0
+Unknown,[OTHER],RP,1996,NA,26,0
+Unknown,[OTHER],RP,1997,NA,21,0
+Unknown,[OTHER],RP,1998,NA,30,0
+Unknown,[OTHER],RP,1999,NA,45,0
+Unknown,[OTHER],RP,2000,NA,34,0
+Unknown,[OTHER],RP,2001,NA,26,0
+Unknown,[OTHER],RP,2002,NA,25,0
+Unknown,[OTHER],RP,2003,NA,52,0
+Unknown,[OTHER],RP,2004,NA,64,0
+Unknown,[OTHER],[OTHER],1983,NA,1,0
+Unknown,[OTHER],[OTHER],1984,NA,2,0
+Unknown,[OTHER],[OTHER],1985,NA,5,0
+Unknown,[OTHER],[OTHER],1986,NA,4,0
+Unknown,[OTHER],[OTHER],1987,NA,6,0
+Unknown,[OTHER],[OTHER],1988,NA,3,0
+Unknown,[OTHER],[OTHER],1989,NA,5,0
+Unknown,[OTHER],[OTHER],1990,NA,3,0
+Unknown,[OTHER],[OTHER],1991,NA,13,0
+Unknown,[OTHER],[OTHER],1992,NA,25,0
+Unknown,[OTHER],[OTHER],1993,NA,40,0
+Unknown,[OTHER],[OTHER],1994,NA,33,0
+Unknown,[OTHER],[OTHER],1995,NA,65,0
+Unknown,[OTHER],[OTHER],1996,NA,73,0
+Unknown,[OTHER],[OTHER],1997,NA,103,0
+Unknown,[OTHER],[OTHER],1998,NA,83,0
+Unknown,[OTHER],[OTHER],1999,NA,132,0
+Unknown,[OTHER],[OTHER],2000,NA,127,0
+Unknown,[OTHER],[OTHER],2001,NA,163,0
+Unknown,[OTHER],[OTHER],2002,NA,197,0
+Unknown,[OTHER],[OTHER],2003,NA,217,0
+Unknown,[OTHER],[OTHER],2004,NA,177,0
