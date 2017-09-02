@@ -1,0 +1,506 @@
+---
+title: "Disparity Report"
+author: "Tomas Corey"
+date: "July 19, 2017"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+library(msm)
+library(plyr)
+```
+
+## Intro
+
+Cappocacia article worked to use combinations of incidence, and survival functions as a general form to calculate mortality functions
+
+Mortality functions are relevant to disparity
+
+Using matrix and established continuous time markov chain concepts, can find survival and incidence, and even include changes in them (emulating treatment introduction)
+
+Using mixtures of these models we can imagine a mixture population where some have different times of uptake
+
+Synthesizing all these ideas together to use incidence, survival, uptake functions, which are known, as well as efficacy of the treatment, which is not necessarily known, to put together mortality functions and disparity functions, which are known. This can help us pinpoint the different efficacy of the treatment in the two populations. 
+
+## Methods 
+
+Representing incidence and cause-specific death as state in a continuous time markov chain allowed for easy estimation of parameters, as well as easy interchangeability between functions (easily integrated, matrix math was well established)
+
+Data from seer allowed us to estimate exponential distribution for survival, 
+
+## Functions
+
+Matrices oldrate and newrate are 
+
+```{r functions}
+find_density <- function(the_time, c, oldrate, newrate ){
+  pmat_c = MatrixExp(oldrate, t = c)
+  pmat_t = MatrixExp(oldrate, t = the_time)
+  pmat_t_c = MatrixExp(oldrate, t = (the_time-c))
+  pmat_t_c_new = MatrixExp(newrate, t = (the_time-c))
+  
+  if(the_time<c){
+    dens = pmat_t[1,2]*oldrate[2,3]  
+  }else{
+    dens = pmat_c[1,2]*pmat_t_c[2,2]*oldrate[2,3]+pmat_c[1,1]*pmat_t_c_new[1,2]*newrate[2,3]
+  }
+  return(dens)
+}
+
+find_cdf <- function(the_time, c, oldrate, newrate ){
+  pmat_c = MatrixExp(oldrate, t = c)
+  pmat_t = MatrixExp(oldrate, t = the_time)
+  pmat_t_c = MatrixExp(oldrate, t = (the_time-c))
+  pmat_t_c_new = MatrixExp(newrate, t = (the_time-c))
+  
+  if(the_time<c){
+    cdf = pmat_t[1,3]
+  }else{
+    cdf = pmat_c[1,3]+pmat_c[1,2]*pmat_t_c[2,3]+pmat_c[1,1]*pmat_t_c_new[1,3]
+  }
+  return(cdf)
+}
+
+observe_pop <- function(lower, upper, c, oldrate, newrate){
+  d <- data.frame(x = seq(lower, upper),
+                  cdf = unlist(lapply(seq(lower, upper), FUN = "find_cdf", c = c, oldrate = oldrate, newrate = newrate)),
+                  pdf = unlist(lapply(seq(lower, upper), FUN = "find_density", c = c,oldrate = oldrate, newrate = newrate)))
+  d <- d %>% mutate(haz = pdf/(1-cdf))
+  return(d)
+}
+
+compare_pops <- function(lower, upper, c, loldrate, lnewrate, holdrate, hnewrate){
+  d <- data.frame(x = seq(lower, upper),
+                  lcdf = unlist(lapply(seq(lower, upper), FUN = "find_cdf", c = c, oldrate = loldrate, newrate = lnewrate)),
+                  lpdf = unlist(lapply(seq(lower, upper), FUN = "find_density", c = c,oldrate = loldrate, newrate = lnewrate)),
+                  hcdf = unlist(lapply(seq(lower, upper), FUN = "find_cdf", c = c, oldrate = holdrate, newrate = hnewrate)),
+                  hpdf = unlist(lapply(seq(lower, upper), FUN = "find_density", c = c,oldrate = holdrate, newrate = hnewrate)))
+  
+  d <- d %>% mutate(lhaz = lpdf/(1-lcdf),
+                    hhaz = hpdf/(1-hcdf),
+                    rat = hhaz/lhaz,
+                    diff = hhaz-lhaz)
+  return(d)
+}
+```
+
+```{r colorectal_cancer_trends}
+loldrate <- matrix(c(-62/100000, 62/100000, 0, 0, -0.12, 0.12, 0, 0, 0), nrow = 3, byrow = TRUE)
+lnewrate <- matrix(c(-57/100000, 57/100000, 0, 0, -0.086, 0.086, 0, 0, 0),nrow = 3, byrow = TRUE)
+holdrate <- matrix(c(-62/100000, 62/100000, 0, 0, -0.151, 0.151, 0, 0, 0), nrow = 3, byrow = TRUE)
+hnewrate <- matrix(c(-62/100000, 62/100000, 0, 0, -0.112, 0.112, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+
+d <- compare_pops(lower = 0, upper = 400, c = 200, loldrate = loldrate, lnewrate = lnewrate, holdrate = holdrate, hnewrate = hnewrate)
+dat <- d %>% dplyr::select(x, pdf = lpdf, cdf = lcdf, haz = lhaz) %>% mutate(Risk = "Lower Risk")
+dat <- d %>% dplyr::select(x, pdf = hpdf, cdf = hcdf, haz = hhaz) %>% mutate(Risk = "Higher Risk") %>% rbind(dat)
+
+print(ggplot(data = dat, aes(x = x, y = pdf, color = Risk)) + geom_line() + labs(x = "Year", y = "Death Density", title = "PDF of Dying by Age"))
+
+print(ggplot(data = dat, aes(x = x, y = 1-cdf, color = Risk)) + geom_line() + labs(x = "Year", y = "Survival", title = "Survival by Age"))
+
+print(ggplot(data = dat, aes(x = x, y = haz, color = Risk)) + geom_line() + labs(x = "Year", y = "Hazard", title = "Hazard Functions by Age With Treatment"))
+
+print(ggplot(data = d, aes(x = x, y = rat)) + geom_line() + labs(x = "Year", y = "Risk Ratio", title = "Risk Ratio by Age With Treatment"))
+
+print(ggplot(data = d, aes(x = x, y = diff)) + geom_line() + labs(x = "Year", y = "Risk Difference", title = "Risk Difference by Age With Treatment"))
+
+```
+
+## Hazard of One Birth Cohort With Two Groups 
+
+```{r hazard_one_cohort}
+loldrate <- matrix(c(-1/48, 1/48, 0, 0, -1/10, 1/10, 0, 0, 0), nrow = 3, byrow = TRUE)
+lnewrate <- matrix(c(-1/48, 1/48, 0, 0, -1/20, 1/20, 0, 0, 0),nrow = 3, byrow = TRUE)
+holdrate <- matrix(c(-1/36, 1/36, 0, 0, -1/5, 1/5, 0, 0, 0), nrow = 3, byrow = TRUE)
+hnewrate <- matrix(c(-1/36, 1/36, 0, 0, -1/10, 1/10, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+
+d <- compare_pops(lower = 0, upper = 400, c = 200, loldrate = loldrate, lnewrate = lnewrate, holdrate = holdrate, hnewrate = hnewrate)
+dat <- d %>% dplyr::select(x, pdf = lpdf, cdf = lcdf, haz = lhaz) %>% mutate(Risk = "Lower Risk")
+dat <- d %>% dplyr::select(x, pdf = hpdf, cdf = hcdf, haz = hhaz) %>% mutate(Risk = "Higher Risk") %>% rbind(dat)
+
+print(ggplot(data = dat, aes(x = x, y = pdf, color = Risk)) + geom_line() + labs(x = "Year", y = "Death Density", title = "PDF of Dying by Age"))
+
+print(ggplot(data = dat, aes(x = x, y = 1-cdf, color = Risk)) + geom_line() + labs(x = "Year", y = "Survival", title = "Survival by Age"))
+
+print(ggplot(data = dat, aes(x = x, y = haz, color = Risk)) + geom_line() + labs(x = "Year", y = "Hazard", title = "Hazard Functions by Age With Treatment"))
+
+print(ggplot(data = d, aes(x = x, y = rat)) + geom_line() + labs(x = "Year", y = "Risk Ratio", title = "Risk Ratio by Age With Treatment"))
+
+print(ggplot(data = d, aes(x = x, y = diff)) + geom_line() + labs(x = "Year", y = "Risk Difference", title = "Risk Difference by Age With Treatment"))
+
+```
+
+## Fractional Uptake of Treatments - Considered as Constant Percentage
+
+If we are to assume that only a fraction of the population has access to the treatment put in as a point change, we can treat the pdf of death as a mixture density function ($f(x;a_1,...,a_n,b_1,...,b_n)=\sum_{i=1}^nw_i p(x; a_i, b_i)$, where $w_i$ is the weighting of the ith distribution), and the survival and cdf functions as mixtures as well ($F(x;a_1,...,a_n,b_1,...,b_n)=\sum_{i=1}^nw_i P(x; a_i, b_i)$). This will give rise to a mixture hazard function in the form of:
+$h(x)=\frac{w_1f(x)+w_2g(x)}{1-(w_1F(x)+w_2G(x))}$
+Where f(x) and F(x) are the pdf and cdf of death without the treatment, and g(x) and G(x) are the pdf and cdf of death with the treatment. 
+
+```{r partial_uptake_constant}
+oldrate = matrix(c(-1/48, 1/48, 0, 0, -1/10, 1/10, 0, 0, 0), nrow = 3, byrow = TRUE)
+newrate = matrix(c(-1/48, 1/48, 0, 0, -1/20, 1/20, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+d_treat <- observe_pop(lower = 0, upper = 400, c = 150, oldrate = oldrate, newrate = newrate)
+d_no_treat <- observe_pop(lower = 0, upper = 400, c = 400, oldrate = oldrate, newrate = newrate)
+
+find_mixed_haz <- function(weight1, pdf1, cdf1, pdf2, cdf2){
+dat <- data.frame(x = 0:(length(pdf1)-1))
+dat <- dat %>% mutate(mixhaz = (weight1*pdf1+(1-weight1)*pdf2)/(1-(weight1*(cdf1)+(1-weight1)*(cdf2))),
+                      weight = factor(weight1))
+return(dat)
+}
+
+weights_list <- lapply(seq(0,1, 0.1), FUN = "find_mixed_haz", pdf1 = d_treat$pdf, cdf1 = d_treat$cdf, pdf2 = d_no_treat$pdf, cdf2 = d_no_treat$cdf)
+
+weights_data <- do.call(rbind, weights_list)
+
+print(ggplot(data = weights_data) + geom_line(aes(x = x, y = mixhaz, color = weight)) + labs(x = "Year", y = "Death Hazard", title = "Hazard Across Different Constant Uptake of Treatment"), color = "Fractional Uptake")
+
+```
+
+In this figure, "weight" indicates the fraction of the population which has access to the treatment.
+
+## Same thing but Treatment Affects Dominant Parameter
+
+```{r partial_uptake_constant_dominant}
+oldrate = matrix(c(-1/10, 1/10, 0, 0, -1/11, 1/11, 0, 0, 0), nrow = 3, byrow = TRUE)
+newrate = matrix(c(-1/10, 1/10, 0, 0, -1/22, 1/22, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+d_treat <- observe_pop(lower = 0, upper = 400, c = 150, oldrate = oldrate, newrate = newrate)
+d_no_treat <- observe_pop(lower = 0, upper = 400, c = 400, oldrate = oldrate, newrate = newrate)
+
+find_mixed_haz <- function(weight1, pdf1, cdf1, pdf2, cdf2){
+dat <- data.frame(x = 0:(length(pdf1)-1))
+dat <- dat %>% mutate(mixhaz = (weight1*pdf1+(1-weight1)*pdf2)/(1-(weight1*(cdf1)+(1-weight1)*(cdf2))),
+                      weight = factor(weight1))
+return(dat)
+}
+
+weights_list <- lapply(seq(0,1, 0.1), FUN = "find_mixed_haz", pdf1 = d_treat$pdf, cdf1 = d_treat$cdf, pdf2 = d_no_treat$pdf, cdf2 = d_no_treat$cdf)
+
+weights_data <- do.call(rbind, weights_list)
+
+print(ggplot(data = weights_data) + geom_line(aes(x = x, y = mixhaz, color = weight)) + labs(x = "Year", y = "Death Hazard", title = "Hazard Across Different Constant Uptake of Treatment"), color = "Fractional Uptake")
+
+```
+
+## Fractional Uptake of Treatments - Using Distribution of Treatment Start Years
+
+If we are to assume similarly, that only a fraction of the population has access to the treatment but instead of viewing it as a point change with a constant "probability" of getting the treatment, we can assume that different sections of the population will get the treatment, but at different times. We can thus give the population a distribution of C (treatment beginning) years, and find each hazard function and weight it according to the density of that C in our distribution. We can treat the pdf of death as a mixture distribution yet again, but this time stratifying across different years of entry. We will assume a discrete-ized version of a normal distribution
+
+```{r partial_uptake_cdistrib}
+oldrate = matrix(c(-1/48, 1/48, 0, 0, -1/11, 1/11, 0, 0, 0), nrow = 3, byrow = TRUE)
+newrate = matrix(c(-1/48, 1/48, 0, 0, -1/20, 1/20, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+disc_norm <- lapply(seq(150, 250, 10)+5, function(x){dnorm(x, mean = 200, sd = 20)*10})
+disc_norm <- lapply(disc_norm, function(x){x/sum(unlist(disc_norm))})
+
+list_pops <- lapply(seq(150, 250, 10), function(iterate){observe_pop(lower = 0, upper = 400, c = iterate, oldrate = oldrate, newrate = newrate) %>% mutate(c_used = iterate)})
+
+many_pops <- do.call(rbind, list_pops)
+many_pops <- many_pops %>% mutate(c_used = factor(c_used))
+
+many_pdf <- mapply(lapply(list_pops, "[[", c("pdf")), disc_norm, FUN = "*")
+many_cdf <- mapply(lapply(list_pops, "[[", c("cdf")), disc_norm, FUN = "*")
+weighted <- apply(many_pdf, 1, "sum")/(1-apply(many_cdf, 1, "sum"))
+
+gg <- ggplot(data = many_pops)+geom_line(aes(x = x, y = haz, color = c_used, group = c_used), linetype = "dashed")
+gg <- gg + geom_line(data = data.frame(x = 0:400, y = weighted), aes(x = x,y = y), color = "red")
+gg <- gg + labs(x = "Year", y = "Death Hazard", title = "Hazard Across Different Constant Uptake of Treatment", color = "Year of Uptake")
+print(gg)
+
+```
+
+In this figure, the red line is the weighted average hazard function, calculated as a fraction of the mixture density function and the mixture survival function
+
+## Same Thing but Treatment Affects Dominant Parameter
+
+```{r partial_uptake_cdistrib_dominant}
+oldrate = matrix(c(-1/10, 1/10, 0, 0, -1/11, 1/11, 0, 0, 0), nrow = 3, byrow = TRUE)
+newrate = matrix(c(-1/10, 1/10, 0, 0, -1/22, 1/22, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+disc_norm <- lapply(seq(150, 250, 10)+5, function(x){dnorm(x, mean = 200, sd = 20)*10})
+disc_norm <- lapply(disc_norm, function(x){x/sum(unlist(disc_norm))})
+
+list_pops <- lapply(seq(150, 250, 10), function(iterate){observe_pop(lower = 0, upper = 400, c = iterate, oldrate = oldrate, newrate = newrate) %>% mutate(c_used  =  iterate)})
+
+many_pops <- do.call(rbind, list_pops)
+many_pops <- many_pops %>% mutate(c_used = factor(c_used))
+
+many_pdf <- mapply(lapply(list_pops, "[[", c("pdf")), disc_norm, FUN = "*")
+many_cdf <- mapply(lapply(list_pops, "[[", c("cdf")), disc_norm, FUN = "*")
+weighted <- apply(many_pdf, 1, "sum")/(1-apply(many_cdf, 1, "sum"))
+
+gg <- ggplot(data = many_pops)+geom_line(aes(x = x, y = haz, color = c_used, group = c_used), linetype = "dashed")
+gg <- gg + geom_line(data = data.frame(x = 0:400, y = weighted), aes(x = x,y = y), color = "red")
+gg <- gg + labs(x = "Year", y = "Death Hazard", title = "Hazard Across Different Constant Uptake of Treatment", color = "Year of Uptake")
+print(gg)
+
+```
+
+
+## Trends in Prostate Cancer Treatment Uptake
+
+After seeing what the hazard ideally looks like in a situation where there's a treatment introduced, it would be useful to know how much of the real world population is able to get treatment. In this case, we looked at the fraction of the prostate cancer patients over time which had undergone radical prostatectomy, radiation, neither of those two treatments, or both.
+
+```{r real_world_plots}
+dat <- read.csv("TreatmentTypeRace.csv")
+names(dat) <- c("race", "rt", "rp", "year", "rate", "count", "pop")
+
+dat <- dat %>% filter(race %in% c("All races", "Black", "White"))
+
+# For each race and year, we must find the total cases, with or
+# without treatment
+dat <- ddply (dat, c("year", "race"), mutate, yearsum = sum(count))
+dat <- dat %>% mutate(rt = (rt=="RT"),
+                      rp = (rp=="RP"),
+                      treat = ifelse(rt,
+                                     ifelse(rp, "Both", "Radiation"),
+                                     ifelse(rp, "Prostatectomy", "Neither")))
+
+# Dividing number with each category of treatment by the total
+# cases will give the rate of each category per case
+sumdat <- ddply(dat, c("year", "race", "treat"), summarise, rate = mean(count/yearsum))
+
+# Splitting the plot by race into lines depicting the rate per
+# case of each treatment category over time
+gg <- ggplot(sumdat, aes(x = year, y = rate, color = race))
+gg <- gg + facet_grid(treat~.)
+gg <- gg + geom_line()
+print(gg)
+
+```
+
+The trend in the "any treatment" option (1 - p(neither treatment)) appears to be asymptotic, leveling out at around 70% (1-0.3) of the population receiving the treatment, or linear piece-wise with a constant slope up until approximately year 1992 or 1993, where the fraction of prostate cancer patients who receive either surgery or radiation becomes a constant at about 70%. 
+
+The next step would be creating a distribution of treatment uptake years which fits best to the real world uptake of radation and surgery.
+
+```{r real_world_uptake_trends}
+# Modeling a cumulative probability to fit the uptake gradient    
+# before the year where it seems to level off, and finding a level
+# after that year when the uptake seems to become constant
+sumdat_any <- sumdat %>% filter(treat=="Neither") %>% 
+                         mutate(treat = "either",
+                                rate = 1-rate)
+
+# Data by race in the interim period of uptake
+bl_dat_inter <- sumdat_any %>% filter(race=="Black", year<=1992)
+wh_dat_inter <- sumdat_any %>% filter(race=="White", year<=1992)
+
+# Data when the uptake levels to a constant
+dat_const <- sumdat_any %>% filter(race=="All races", year>1992)
+
+# Making loess models assumed to be approximately the cdf of interim
+# uptake
+bl_loess <- loess(data = bl_dat_inter, rate~year)$fitted
+wh_loess <- loess(data = wh_dat_inter, rate~year)$fitted
+
+# Fraction of population which never will get treatment (C = infinity)
+weight_never <- 1 - mean(dat_const$rate)
+
+# Finding interim weights and scaling it so the total mass is 1
+bl_loess_weights <- diff(bl_loess)*
+                    (1 - bl_loess[1] - weight_never)/
+                    sum(diff(bl_loess))
+
+bl_weights <- data.frame(c = 1900, weight = bl_loess[1])
+bl_weights <- bl_weights %>% rbind(data.frame(c = 1983:1991, 
+                                              weight = bl_loess_weights))
+bl_weights <- bl_weights %>% rbind(data.frame(c = 10000, weight = weight_never))
+bl_weights <- bl_weights %>% mutate(race = "black")
+
+wh_loess_weights <- diff(wh_loess)*
+                    (1 - wh_loess[1] - weight_never)/
+                    sum(diff(wh_loess))
+
+wh_weights <- data.frame(c = 1900, weight = wh_loess[1])
+wh_weights <- wh_weights %>% rbind(data.frame(c = 1983:1991, 
+                                              weight = wh_loess_weights))
+wh_weights <- wh_weights %>% rbind(data.frame(c = 10000, weight = weight_never))
+wh_weights <- wh_weights %>% mutate(race = "white")
+
+all_weights <- rbind(bl_weights, wh_weights)
+gg <- ggplot(data = all_weights)
+gg <- gg + geom_bar(aes(x = factor(c), y = weight), stat = "identity")
+gg <- gg + facet_grid(race~.)
+print(gg)
+
+```
+
+# Hazard and Disparity Functions Using This C Distribution 
+
+```{r real_world_cdistrib_twopops_nonlimiting}
+bl_oldrate = matrix(c(-1/36, 1/36, 0, 0, -1/8, 1/8, 0, 0, 0), nrow = 3, byrow = TRUE)
+bl_newrate = matrix(c(-1/36, 1/36, 0, 0, -1/16, 1/16, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+bl_list_pops <- lapply(bl_weights$c-1900, function(iterate){observe_pop(lower = 0, upper = 200, c = iterate, oldrate = bl_oldrate, newrate = bl_newrate) %>% mutate(c_used = iterate)})
+
+bl_many_pops <- do.call(rbind, bl_list_pops)
+bl_many_pops <- bl_many_pops %>% mutate(c_used = factor(c_used),
+                                        race = "black")
+
+bl_many_pdf <- mapply(lapply(bl_list_pops, "[[", c("pdf")), bl_weights$weight, FUN = "*")
+bl_many_cdf <- mapply(lapply(bl_list_pops, "[[", c("cdf")), bl_weights$weight, FUN = "*")
+bl_weighted <- apply(bl_many_pdf, 1, "sum")/(1-apply(bl_many_cdf, 1, "sum"))
+bl_many_pops <- bl_many_pops %>% select(x, haz, c_used, race) %>% rbind(data.frame(x = 0:200, haz = bl_weighted, c_used = "weighted", race = "black"))
+
+# Making functions and weighting for whites
+wh_oldrate = matrix(c(-1/48, 1/48, 0, 0, -1/10, 1/10, 0, 0, 0), nrow = 3, byrow = TRUE)
+wh_newrate = matrix(c(-1/48, 1/48, 0, 0, -1/20, 1/20, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+
+wh_list_pops <- lapply(wh_weights$c-1900, function(iterate){observe_pop(lower = 0, upper = 200, c = iterate, oldrate = wh_oldrate, newrate = wh_newrate) %>% mutate(c_used = iterate)})
+
+wh_many_pops <- do.call(rbind, wh_list_pops)
+wh_many_pops <- wh_many_pops %>% mutate(c_used = factor(c_used),
+                                        race = "white")
+
+wh_many_pdf <- mapply(lapply(wh_list_pops, "[[", c("pdf")), wh_weights$weight, FUN = "*")
+wh_many_cdf <- mapply(lapply(wh_list_pops, "[[", c("cdf")), wh_weights$weight, FUN = "*")
+wh_weighted <- apply(wh_many_pdf, 1, "sum")/(1-apply(wh_many_cdf, 1, "sum"))
+wh_many_pops <- wh_many_pops %>% select(x, haz, c_used, race) %>% rbind(data.frame(x = 0:200, haz = wh_weighted, c_used = "weighted", race = "white"))
+
+# Combining the two data frames
+many_pops <- rbind(bl_many_pops, wh_many_pops)
+
+gg <- ggplot(data = subset(many_pops, c_used!="weighted"))+geom_line(aes(x = x+1900, y = haz, color = c_used, group = c_used), linetype = "dashed")
+gg <- gg + facet_grid(.~race)
+gg <- gg + geom_line(data = subset(many_pops, c_used=="weighted"), aes(x = x+1900,y = haz), color = "red")
+gg <- gg + labs(x = "Year", y = "Death Hazard", title = "Hazard Across Different Constant Uptake of Treatment", color = "Year of Uptake")
+print(gg)
+
+# Making data frame with disparity stats
+many_pops_disp <- data.frame(x = 0:200, riskrat = bl_weighted/wh_weighted, riskdiff = bl_weighted - wh_weighted)
+
+gg <- ggplot(data = many_pops_disp, aes(x = x+1900, y = riskrat))
+gg <- gg + geom_line()
+gg <- gg + labs(x = "Year", y = "Risk Ratio", title = "Risk Ratio by Year")
+print(gg)
+
+gg <- ggplot(data = many_pops_disp, aes(x = x+1900, y = riskdiff))
+gg <- gg + geom_line()
+gg <- gg + labs(x = "Year", y = "Risk Difference", title = "Risk Difference by Year")
+print(gg)
+
+```
+
+## Same Thing Except Treatment Affects Limiting Parameter
+
+```{r real_world_cdistrib_twopops_limiting}
+bl_oldrate = matrix(c(-1/14, 1/14, 0, 0, -1/15, 1/15, 0, 0, 0), nrow = 3, byrow = TRUE)
+bl_newrate = matrix(c(-1/14, 1/14, 0, 0, -1/20, 1/20, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+bl_list_pops <- lapply(bl_weights$c-1900, function(iterate){observe_pop(lower = 0, upper = 200, c = iterate, oldrate = bl_oldrate, newrate = bl_newrate) %>% mutate(c_used = iterate)})
+
+bl_many_pops <- do.call(rbind, bl_list_pops)
+bl_many_pops <- bl_many_pops %>% mutate(c_used = factor(c_used),
+                                        race = "black")
+
+bl_many_pdf <- mapply(lapply(bl_list_pops, "[[", c("pdf")), bl_weights$weight, FUN = "*")
+bl_many_cdf <- mapply(lapply(bl_list_pops, "[[", c("cdf")), bl_weights$weight, FUN = "*")
+bl_weighted <- apply(bl_many_pdf, 1, "sum")/(1-apply(bl_many_cdf, 1, "sum"))
+bl_many_pops <- bl_many_pops %>% select(x, haz, c_used, race) %>% rbind(data.frame(x = 0:200, haz = bl_weighted, c_used = "weighted", race = "black"))
+
+# Making functions and weighting for whites
+wh_oldrate = matrix(c(-1/19, 1/19, 0, 0, -1/20, 1/20, 0, 0, 0), nrow = 3, byrow = TRUE)
+wh_newrate = matrix(c(-1/19, 1/19, 0, 0, -1/30, 1/30, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+
+wh_list_pops <- lapply(wh_weights$c-1900, function(iterate){observe_pop(lower = 0, upper = 200, c = iterate, oldrate = wh_oldrate, newrate = wh_newrate) %>% mutate(c_used = iterate)})
+
+wh_many_pops <- do.call(rbind, wh_list_pops)
+wh_many_pops <- wh_many_pops %>% mutate(c_used = factor(c_used),
+                                        race = "white")
+
+wh_many_pdf <- mapply(lapply(wh_list_pops, "[[", c("pdf")), wh_weights$weight, FUN = "*")
+wh_many_cdf <- mapply(lapply(wh_list_pops, "[[", c("cdf")), wh_weights$weight, FUN = "*")
+wh_weighted <- apply(wh_many_pdf, 1, "sum")/(1-apply(wh_many_cdf, 1, "sum"))
+wh_many_pops <- wh_many_pops %>% select(x, haz, c_used, race) %>% rbind(data.frame(x = 0:200, haz = wh_weighted, c_used = "weighted", race = "white"))
+
+# Combining the two data frames
+many_pops <- rbind(bl_many_pops, wh_many_pops)
+
+gg <- ggplot(data = subset(many_pops, c_used!="weighted"))+geom_line(aes(x = x+1900, y = haz, color = c_used, group = c_used), linetype = "dashed")
+gg <- gg + facet_grid(.~race)
+gg <- gg + geom_line(data = subset(many_pops, c_used=="weighted"), aes(x = x+1900,y = haz), color = "red")
+gg <- gg + labs(x = "Year", y = "Death Hazard", title = "Hazard Across Different Constant Uptake of Treatment", color = "Year of Uptake")
+print(gg)
+
+# Making data frame with disparity stats
+many_pops_disp <- data.frame(x = 0:200, riskrat = bl_weighted/wh_weighted, riskdiff = bl_weighted - wh_weighted)
+
+gg <- ggplot(data = many_pops_disp, aes(x = x+1900, y = riskrat))
+gg <- gg + geom_line()
+gg <- gg + labs(x = "Year", y = "Risk Ratio", title = "Risk Ratio by Year")
+print(gg)
+
+gg <- ggplot(data = many_pops_disp, aes(x = x+1900, y = riskdiff))
+gg <- gg + geom_line()
+gg <- gg + labs(x = "Year", y = "Risk Difference", title = "Risk Difference by Year")
+print(gg)
+
+```
+
+```{r real_world_cdistrib_and_parameters}
+bl_weights$c[1] <- 0
+wh_weights$c[1] <- 0
+
+bl_oldrate = matrix(c(-600/100000, 600/100000, 0, 0, -0.08321095, 0.08321095, 0, 0, 0), nrow = 3, byrow = TRUE)
+bl_newrate = matrix(c(-600/100000, 600/100000, 0, 0, -0.08321095*0.6, 0.08321095*0.6, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+bl_list_pops <- lapply(bl_weights$c, function(iterate){observe_pop(lower = 0, upper = 2100, c = iterate, oldrate = bl_oldrate, newrate = bl_newrate) %>% mutate(c_used = iterate)})
+
+bl_many_pops <- do.call(rbind, bl_list_pops)
+bl_many_pops <- bl_many_pops %>% mutate(c_used = factor(c_used),
+                                        race = "black")
+
+bl_many_pdf <- mapply(lapply(bl_list_pops, "[[", c("pdf")), bl_weights$weight, FUN = "*")
+bl_many_cdf <- mapply(lapply(bl_list_pops, "[[", c("cdf")), bl_weights$weight, FUN = "*")
+bl_weighted <- apply(bl_many_pdf, 1, "sum")/(1-apply(bl_many_cdf, 1, "sum"))
+bl_many_pops <- bl_many_pops %>% select(x, haz, c_used, race) %>% rbind(data.frame(x = 0:2100, haz = bl_weighted, c_used = "weighted", race = "black"))
+
+# Making functions and weighting for whites
+wh_oldrate = matrix(c(-386/100000, 386/100000, 0, 0, -0.04780325, 0.04780325, 0, 0, 0), nrow = 3, byrow = TRUE)
+wh_newrate = matrix(c(-386/100000, 386/100000, 0, 0, -0.04780325*0.6, 0.04780325*0.6, 0, 0, 0), nrow  =  3, byrow  =  TRUE)
+
+
+wh_list_pops <- lapply(wh_weights$c, function(iterate){observe_pop(lower = 0, upper = 2100, c = iterate, oldrate = wh_oldrate, newrate = wh_newrate) %>% mutate(c_used = iterate)})
+
+wh_many_pops <- do.call(rbind, wh_list_pops)
+wh_many_pops <- wh_many_pops %>% mutate(c_used = factor(c_used),
+                                        race = "white")
+
+wh_many_pdf <- mapply(lapply(wh_list_pops, "[[", c("pdf")), wh_weights$weight, FUN = "*")
+wh_many_cdf <- mapply(lapply(wh_list_pops, "[[", c("cdf")), wh_weights$weight, FUN = "*")
+wh_weighted <- apply(wh_many_pdf, 1, "sum")/(1-apply(wh_many_cdf, 1, "sum"))
+wh_many_pops <- wh_many_pops %>% select(x, haz, c_used, race) %>% rbind(data.frame(x = 0:2100, haz = wh_weighted, c_used = "weighted", race = "white"))
+
+# Combining the two data frames
+many_pops <- rbind(bl_many_pops, wh_many_pops)
+
+gg <- ggplot(data = subset(many_pops, c_used!= "weighted"))+geom_line(aes(x = x, y = haz, color = c_used, group = c_used), linetype = "dashed")
+gg <- gg + facet_grid(.~race)
+gg <- gg + geom_line(data = subset(many_pops, c_used=="weighted"), aes(x = x,y = haz), color = "red")
+gg <- gg + labs(x = "Year", y = "Death Hazard", title = "Hazard Across Different Constant Uptake of Treatment", color = "Year of Uptake")
+gg <- gg + xlim(0,300)
+print(gg)
+
+# Making data frame with disparity stats
+many_pops_disp <- data.frame(x = 0:2100, riskrat = bl_weighted/wh_weighted, riskdiff = bl_weighted - wh_weighted)
+
+gg <- ggplot(data = many_pops_disp, aes(x = x, y = riskrat))
+gg <- gg + geom_line()
+gg <- gg + labs(x = "Year", y = "Risk Ratio", title = "Risk Ratio by Year")
+print(gg)
+
+gg <- ggplot(data = many_pops_disp, aes(x = x, y = riskdiff))
+gg <- gg + geom_line()
+gg <- gg + labs(x = "Year", y = "Risk Difference", title = "Risk Difference by Year")
+print(gg)
+
+```
