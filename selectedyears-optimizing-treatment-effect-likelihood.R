@@ -33,7 +33,7 @@ source("real-world-uptake-trends.R")
 
 
 
-# # RETURNS - 424995.5 NO NEED TO RUN
+# # RETURNS -424995.5 NO NEED TO RUN
 # heswh <- numDeriv::hessian(function(rat){
 # 
 #   print(rat)
@@ -157,28 +157,28 @@ source("real-world-uptake-trends.R")
 # 
 # 1/hessian value for each black and white log likelihoods is an estimate
 # of the variance in the parameter
+# For whites, 0.001533938
+# For blacks, 0.006744197
 
 
 
 
 # ## CREATING AGEMORT
 # 
-### THE CURRENT VERSION IN GITHUB IS OLD - ONCE YOU RUN THIS CODE DELETE THIS LINE AND COMMIT
-### BOTH THIS FILE AND THE AGEMORT.CSV FILE INTO GITHUB PRONTO!!!
-#
+# 
 # agemort <- ddply(agemort, c("yearbth", "yeardth", "race"), mutate, mod = ifelse(race == "White",
 #                                                                                 find_weighted_hazard(the_time = yeardth,
 #                                                                                                      birth_year = yearbth,
 #                                                                                                      cs = wh_weights$c,
 #                                                                                                      weights = wh_weights$weight,
 #                                                                                                      pars = wh_pars,
-#                                                                                                      haz_rat = 0.6893223),
+#                                                                                                      haz_rat = 0.4624242),
 #                                                                                 find_weighted_hazard(the_time = yeardth,
 #                                                                                                      birth_year = yearbth,
 #                                                                                                      cs = bl_weights$c,
 #                                                                                                      weights = bl_weights$weight,
 #                                                                                                      pars = bl_pars,
-#                                                                                                      haz_rat = 1.108329)))
+#                                                                                                      haz_rat = 0.8666802)))
 # 
 # agemort <- ddply(agemort, c("yearbth", "yeardth", "race"), mutate, modnotreat = ifelse(race == "White",
 #                                                                                        find_weighted_hazard(the_time = yeardth,
@@ -186,49 +186,49 @@ source("real-world-uptake-trends.R")
 #                                                                                                             cs = wh_weights$c,
 #                                                                                                             weights = wh_weights$weight,
 #                                                                                                             pars = wh_pars,
-#                                                                                                             haz_rat = 0.6002379),
+#                                                                                                             haz_rat = 1),
 #                                                                                        find_weighted_hazard(the_time = yeardth,
 #                                                                                                             birth_year = yearbth,
 #                                                                                                             cs = bl_weights$c,
 #                                                                                                             weights = bl_weights$weight,
 #                                                                                                             pars = bl_pars,
-#                                                                                                             haz_rat = 0.8401731)))
+#                                                                                                             haz_rat = 1)))
 # 
-# agemort <- ddply(agemort, c("yearbth", "yeardth", "race"), mutate, modcrazytreat = ifelse(race == "White", 
+# agemort <- ddply(agemort, c("yearbth", "yeardth", "race"), mutate, modcrazytreat = ifelse(race == "White",
 #                                                                                        find_weighted_hazard(the_time = yeardth,
-#                                                                                                             birth_year = yearbth, 
-#                                                                                                             cs = wh_weights$c, 
-#                                                                                                             weights = wh_weights$weight, 
-#                                                                                                             pars = wh_pars, 
+#                                                                                                             birth_year = yearbth,
+#                                                                                                             cs = wh_weights$c,
+#                                                                                                             weights = wh_weights$weight,
+#                                                                                                             pars = wh_pars,
 #                                                                                                             haz_rat = 0.3),
 #                                                                                        find_weighted_hazard(the_time = yeardth,
-#                                                                                                             birth_year = yearbth, 
-#                                                                                                             cs = bl_weights$c, 
-#                                                                                                             weights = bl_weights$weight, 
-#                                                                                                             pars = bl_pars, 
+#                                                                                                             birth_year = yearbth,
+#                                                                                                             cs = bl_weights$c,
+#                                                                                                             weights = bl_weights$weight,
+#                                                                                                             pars = bl_pars,
 #                                                                                                             haz_rat = 0.3)))
 # 
-#write.csv(agemort, file = "agemort.csv")
+# write.csv(agemort, file = "agemort.csv")
 
 
 ## READ AGEMORT ONCE ITS MADE
 
-# agemort <- read.csv("agemort.csv")
-# gg <- ggplot(agemort %>% filter(yearbth > 1915, yearbth < 1945), aes(x = age, y = rate/100000, color = race))
-# gg <- gg + geom_point()
-# gg <- gg + geom_line(aes(x = age, y = mod, color = race))
-# gg <- gg + geom_line(aes(x = age, y = modnotreat, color = race), linetype = "dashed")
-# gg <- gg + geom_line(aes(x = age, y = modcrazytreat, color = race), linetype = "dotted")
-# gg <- gg + facet_wrap(~yearbth)
-# gg <- gg + labs(colour = "Race", x = "Age", y = "Mortality Hazard", title = "Age Dependent Mortality Hazard Over Different Birth Cohorts")
-# print(gg)
-# 
-# 
-# RESIDUALS PLOT
-# gg <- ggplot(agemort %>% filter(yearbth > 1915, yearbth < 1945), aes(x = age, y = mod-rate/100000, color = race))
-# gg <- gg + geom_point()
-# gg <- gg + geom_point(aes(x = age, y = modnotreat-rate/100000, color = race), shape = 38)
-# gg <- gg + facet_wrap(~yearbth)
-# gg <- gg + labs(colour = "Race", x = "Age", y = "Mortality Hazard", title = "Age Dependent Mortality Hazard Over Different Birth Cohorts")
-# print(gg)
+agemort <- read.csv("agemort.csv")
+gg <- ggplot(agemort %>% filter(yearbth > 1915, yearbth < 1945), aes(x = age, y = rate/100000, color = race))
+gg <- gg + geom_point()
+gg <- gg + geom_line(aes(x = age, y = mod, color = race))
+gg <- gg + geom_line(aes(x = age, y = modnotreat, color = race), linetype = "dashed")
+gg <- gg + geom_line(aes(x = age, y = modcrazytreat, color = race), linetype = "dotted")
+gg <- gg + facet_wrap(~yearbth)
+gg <- gg + labs(colour = "Race", x = "Age", y = "Mortality Hazard", title = "Age Dependent Mortality Hazard Over Different Birth Cohorts")
+print(gg)
+
+
+## RESIDUALS PLOT
+gg <- ggplot(agemort %>% filter(yearbth > 1915, yearbth < 1945), aes(x = age, y = mod-rate/100000, color = race))
+gg <- gg + geom_point()
+gg <- gg + geom_point(aes(x = age, y = modnotreat-rate/100000, color = race), shape = 38)
+gg <- gg + facet_wrap(~yearbth)
+gg <- gg + labs(colour = "Race", x = "Age", y = "Mortality Hazard", title = "Age Dependent Mortality Hazard Over Different Birth Cohorts")
+print(gg)
 
