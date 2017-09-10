@@ -206,7 +206,7 @@ print(gg2)
 ```
 
 ```{r real-world-one-cohort}
-agemort <- read.csv("long_age_specific_mortality.csv", stringsAsFactors = FALSE)
+agemort <- read.csv("long-age-specific-mortality.csv", stringsAsFactors = FALSE)
 names(agemort) <- c("race", "age", "yeardth", "rate", "count", "pop")
 agemort <- agemort %>% filter(race %in% c("White", "Black"))
 agemort <- agemort %>% filter(nchar(yeardth) == 4,
