@@ -249,7 +249,7 @@ print(gg)
 After seeing what the hazard ideally looks like in a situation where there's a treatment introduced, it would be useful to know how much of the real world population is able to get treatment. In this case, we looked at the fraction of the prostate cancer patients over time which had undergone radical prostatectomy, radiation, neither of those two treatments, or both.
 
 ```{r real_world_plots}
-dat <- read.csv("TreatmentTypeRace.csv")
+dat <- read.csv("treatment-type-race.csv")
 names(dat) <- c("race", "rt", "rp", "year", "rate", "count", "pop")
 
 dat <- dat %>% filter(race %in% c("All races", "Black", "White"))
