@@ -2,7 +2,7 @@ library(dplyr)
 library(ggplot2)
 library(plyr)
 
-dat <- read.csv("TreatmentTypeRace.csv", stringsAsFactors = FALSE)
+dat <- read.csv("treatment-type-race.csv", stringsAsFactors = FALSE)
 names(dat) <- c("race", "rt", "rp", "year", "rate", "count", "pop")
 
 dat <- dat %>% filter(race %in% c("All races", "Black", "White"),
