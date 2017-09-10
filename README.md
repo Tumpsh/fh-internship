@@ -63,7 +63,7 @@ defining-simulation-functions.R: Defining functions which create our analytic mo
 real-world-age-specific-mortality.R: Creating a dataframe of values which we can compare our model to\
 real-world-parameter-dataframe.R: Creating a dataframe which contains incidence and survival values for each race and age group\
 real-world-uptake-trends.R: Creating uptake distributions for black and white men over time\
-selectedyears-optimizing-treatment-effect-likelihood.R: Optimizing treatment effect parameter with a poisson likelihood method\
+selectedyears-optimizing-treatment-effect-likelihood.R: Optimizing treatment effect parameter with a poisson likelihood method
 ### Reports
 disparityreport-withoutagedependentincidence.Rmd: Old report before model was updated\
 disparity-report.Rmd: Most current report (in progress) 
