@@ -26,7 +26,7 @@
 ## assuming each person was exactly at the middle of the age group when they
 ## died.
 
-agemort <- read.csv("long_age_specific_mortality.csv", stringsAsFactors = FALSE)
+agemort <- read.csv("long-age-specific-mortality.csv", stringsAsFactors = FALSE)
 names(agemort) <- c("race", "age", "yeardth", "rate", "count", "pop")
 
 agemort <- agemort %>% filter(race %in% c("White", "Black"))
