@@ -1,0 +1,300 @@
+
+
+---
+title: "Disparity Write Up"
+author: "Tomas Corey"
+date: "July 28, 2017"
+output: html_document
+---
+
+## Introduction
+
+Many cancers are characerized by disparities in cancer mortality between races, which are evident on a population level. SEER registry data shows that black men have higher mortality than white men in prostate cancer; black women have higher mortality than white women in breast cancer; black people have higher mortality than white people in numerous other common cancers such as colorectal, stomach and lung. Minimizing disparities in cancer mortality is an important public health goal, and potential future interventions require understanding of why such disparities occur.
+
+Determining the cause of disparities in population level data is challenging because they may result from biological differences in incidence and survival, disparities in efficacy in treatment or screening, or disparities in adoption of treatment or screening. Furthermore, temporal trends in the overall population reflect changing practice patterns, such as the adoption of screening, and introduction of more effective treatment. 
+
+Work done previously in cancer disparities has been primarily descriptive, rather than mechanistic. 
+
+
+
+
+
+
+## Methods
+
+Our model of disease death is based on a continuous-time Markov chain, in which one's only possible progression is from healthy to sick to dead. The rates for going from healthy to sick are age-dependent, and the rate of survival is constant over a person's life. 
+
+Additionally, as treatment is introduced, a certain "cutoff date" is modelled. Intuitively, this cutoff date is the date after which a newly diagnosed patient will receive a certain treatment. We modelled a mixture of different cutoff dates from a cutoff date distribution. Cutoff dates occur at different ages for people depending on their birth year as well, occurring at the same "date" regardless of birth year. 
+
+Our model of the treatment effect is a hazard ratio on survival past diagnosis. If someone is diagnosed past their cutoff date, their mortality rate is multiplied by a constant between 0 and 1. 
+
+From all of these parameters (birth year, cutoff date distribution, incidence rates by age, survival rate, and treatment hazard ratio), our model gives the hazard of dying in an observed year. 
+
+To find the rates of incidence and survival, we used SEER registry data, selecting for local/regional or metastatic prostate cancer cases diagnosed between 1980 and 1986. Stratifying by race and age at diagnosis, we calculated race and age-dependent incidence rates by finding the mean number of new cases per year. For survival rate, we selected for cases which didn't receive radical prostatectomy or radiation therapy, and found the median survival time, given cause of death was prostate cancer. Given median survival time, and assuming an exponential survival time, we can find the rate parameter of the distribution using the quantile function. 
+
+To find birth-cohort-specific mortality and population-level mortality, we used SEER registry data as well. For birth-cohort data, we ran a SEER rate session for age-specific mortality, selecting for men who died of prostate cancer, and displaying their race, age of death, and year of death. Since age of death was split into 5 year age groups, we assumed exactly a death age at the middle of each 5 year group. Thus, we could give each 
+
+## Single Birth Cohort and Constant Incidence
+
+Originally, our model was based on a single birth-cohort population, with constant incidence and survival rates. 
+
+```{r old-functions}
+old_find_density <- function(the_time, c, oldrate, newrate ){
+  pmat_c = MatrixExp(oldrate, t = c)
+  pmat_t = MatrixExp(oldrate, t = the_time)
+  pmat_t_c = MatrixExp(oldrate, t = (the_time-c))
+  pmat_t_c_new = MatrixExp(newrate, t = (the_time-c))
+  
+  if(the_time<c){
+    dens = pmat_t[1,2]*oldrate[2,3]  
+  }else{
+    dens = pmat_c[1,2]*pmat_t_c[2,2]*oldrate[2,3]+pmat_c[1,1]*pmat_t_c_new[1,2]*newrate[2,3]
+  }
+  return(dens)
+}
+
+old_find_cdf <- function(the_time, c, oldrate, newrate ){
+  pmat_c = MatrixExp(oldrate, t = c)
+  pmat_t = MatrixExp(oldrate, t = the_time)
+  pmat_t_c = MatrixExp(oldrate, t = (the_time-c))
+  pmat_t_c_new = MatrixExp(newrate, t = (the_time-c))
+  
+  if(the_time<c){
+    cdf = pmat_t[1,3]
+  }else{
+    cdf = pmat_c[1,3]+pmat_c[1,2]*pmat_t_c[2,3]+pmat_c[1,1]*pmat_t_c_new[1,3]
+  }
+  return(cdf)
+}
+
+old_observe_pop <- function(lower, upper, c, oldrate, newrate){
+  d <- data.frame(x = seq(lower, upper),
+                  cdf = unlist(lapply(seq(lower, upper), FUN = "old_find_cdf", c = c, oldrate = oldrate, newrate = newrate)),
+                  pdf = unlist(lapply(seq(lower, upper), FUN = "old_find_density", c = c,oldrate = oldrate, newrate = newrate)))
+  d <- d %>% mutate(haz = pdf/(1-cdf))
+  return(d)
+}
+
+old_compare_pops <- function(lower, upper, c, loldrate, lnewrate, holdrate, hnewrate){
+  d <- data.frame(x = seq(lower, upper),
+                  lcdf = unlist(lapply(seq(lower, upper), FUN = "old_find_cdf", c = c, oldrate = loldrate, newrate = lnewrate)),
+                  lpdf = unlist(lapply(seq(lower, upper), FUN = "old_find_density", c = c,oldrate = loldrate, newrate = lnewrate)),
+                  hcdf = unlist(lapply(seq(lower, upper), FUN = "old_find_cdf", c = c, oldrate = holdrate, newrate = hnewrate)),
+                  hpdf = unlist(lapply(seq(lower, upper), FUN = "old_find_density", c = c,oldrate = holdrate, newrate = hnewrate)))
+  
+  d <- d %>% mutate(lhaz = lpdf/(1-lcdf),
+                    hhaz = hpdf/(1-hcdf),
+                    rat = hhaz/lhaz,
+                    diff = hhaz-lhaz)
+  return(d)
+}
+```
+
+```{r old_hazard_one_cohort}
+loldrate <- matrix(c(-1/48, 1/48, 0, 0, -1/10, 1/10, 0, 0, 0), nrow = 3, byrow = TRUE)
+lnewrate <- matrix(c(-1/48, 1/48, 0, 0, -1/20, 1/20, 0, 0, 0),nrow = 3, byrow = TRUE)
+holdrate <- matrix(c(-1/36, 1/36, 0, 0, -1/5, 1/5, 0, 0, 0), nrow = 3, byrow = TRUE)
+hnewrate <- matrix(c(-1/36, 1/36, 0, 0, -1/10, 1/10, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+
+d <- old_compare_pops(lower = 0, upper = 400, c = 200, loldrate = loldrate, lnewrate = lnewrate, holdrate = holdrate, hnewrate = hnewrate)
+dat <- d %>% dplyr::select(x, pdf = lpdf, cdf = lcdf, haz = lhaz) %>% mutate(Risk = "Lower Risk")
+dat <- d %>% dplyr::select(x, pdf = hpdf, cdf = hcdf, haz = hhaz) %>% mutate(Risk = "Higher Risk") %>% rbind(dat)
+
+print(ggplot(data = dat, aes(x = x, y = haz, color = Risk)) + geom_line() + labs(x = "Year", y = "Hazard", title = "Hazard Functions by Age With Treatment"))
+
+print(ggplot(data = d, aes(x = x, y = rat)) + geom_line() + labs(x = "Year", y = "Risk Ratio", title = "Risk Ratio by Age With Treatment"))
+
+print(ggplot(data = d, aes(x = x, y = diff)) + geom_line() + labs(x = "Year", y = "Risk Difference", title = "Risk Difference by Age With Treatment"))
+
+```
+
+## 
+## asdfasbgsf
+
+Our model of prostate cancer death is based on a continuous time Markov chain. In this model, there is a state space
+$S:=\{0, 1, 2\}$
+where state 0 is health, state 1 is after clinical diagnosis of cancer, and state 2 is prostate cancer death. State 2 is considered an absorbing state. In this model there is no other cause death or competing risk. The only possible transitions are state 0 to 1 and 1 to 2.
+This model can be represented as a rate or transition intensity matrix, $\Lambda$. In this case, the rates, $\lambda_{ij}$, for the possible transitions represent the exponential rate parameter for that transition, and the diagonal values of the matrix, the "rates" of staying in the same state, are the negative sum of the other rates in the row, and consequently, each row's sum is zero. 
+\[\Lambda
+=
+\begin{bmatrix}
+\lambda_{00} & \lambda_{01} & \lambda_{02} \\
+\lambda_{10} & \lambda_{11} & \lambda_{12} \\
+\lambda_{20} & \lambda_{21} & \lambda_{22} \\
+\end{bmatrix}
+\]
+
+In our model, the only possible transitions are from 0 to 1 and 1 to 2, so we can immediately change some of the rates before knowing any numbers. 
+
+\[\Lambda
+=
+\begin{bmatrix}
+-\lambda_{01} & \lambda_{01} & 0 \\
+0 & -\lambda_{12} & \lambda_{12} \\
+0 & 0 & 0 \\
+\end{bmatrix}
+\]
+
+To find the probability of going from state i to state j by time t, we can make a transition probability matrix, $P_{ij}(t)$. This matrix will be the matrix exponential of our rate matrix multiplied by the interval of time over which the change may have occurred. 
+
+\[P_{ij}(t)
+=
+\begin{bmatrix}
+P_{00}(t) & P_{01}(t) & P_{02}(t) \\
+P_{10}(t) & P_{11}(t) & P_{12}(t) \\
+P_{20}(t) & P_{21}(t) & P_{22}(t) \\
+\end{bmatrix} 
+=
+exp(\Lambda t)
+\]
+
+In our case, we also include a change (a new treatment being implemented) in the rate matrix after time c. After this, we have $\Lambda^*$. In our case, only the survival past clinical diagnosis is affected by the change. Thus we have
+\[\Lambda^*
+=
+\begin{bmatrix}
+-\lambda_{01} & \lambda_{01} & 0 \\
+0 & -\lambda_{12}^* & \lambda_{12}^* \\
+0 & 0 & 0 \\
+\end{bmatrix}
+\]
+
+and 
+
+\[P_{ij}^*(t)
+=
+\begin{bmatrix}
+P^*_{00}(t) & P^*_{01}(t) & P^*_{02}(t) \\
+P^*_{10}(t) & P^*_{11}(t) & P^*_{12}(t) \\
+P^*_{20}(t) & P^*_{21}(t) & P^*_{22}(t) \\
+\end{bmatrix} 
+=
+exp(\Lambda^*t)
+\]
+
+Thus, the cumulative density function of going from state 0 to 2 (healthy to dead) by time t, can be defined as follows
+\[ F(t):=
+  \begin{cases} 
+      P_{02}(t) & t<c \\
+      P_{02}(c)+P_{01}(c)P_{12}(t-c)+P_{00}P^*_{02}(t-c) & t>c 
+   \end{cases}
+\]
+
+In order to find the density function, we must differentiate with respect to t. Functions of c are simply constants, and differentiate to 0. Functions such as $\frac{d}{dt}P_{12}(t-c)$ can be represented as $P_{11}(t-c)\lambda_{12}$. Intuitively, this can be considered the probability of staying in state 1 for the interval t-c, scaled for the rate of transitioning exactly at time t. Thus, we have
+
+\[ f(t):=
+  \begin{cases} 
+      P_{01}(t)\lambda_{12} & t<c \\
+      P_{01}(c)P_{11}(t-c)\lambda_{12}+P_{00}P^*_{01}(t-c)\lambda^*_{12} & t>c 
+   \end{cases}
+\]
+
+The hazard function can be found simply as the ratio between the density function ($f(t)$) and the survival function ($S(t):=1-F(t)$)
+
+In our model, additionally, there is an element of variable c values, or cutoff dates. This value can be thought of as the date after which people newly diagnosed will receive some certain treatment. By introducing a discrete weighting function of c values, we can treat the pdf of death as a mixture density function ($f(x;c_1,...,c_n)=\sum_{i=1}^nw_i f(x; c_i)$, where $w_i$ is the weighting of the ith distribution), and the cdf function as a mixture as well ($F(x;c_1,...,c_n)=\sum_{i=1}^nw_i F(x; c_i)$). This will give rise to a mixture hazard function in the form of:
+$h(x)=\frac{\sum_{i=1}^nw_i f(x; c_i)}{1-(\sum_{i=1}^nw_i F(x; c_i))}$
+
+Various forms of densities/weights for different c values can be used, but our method was as follows. We assumed some patients will always receive treatment ($c=-\infty$), and some would never receive treatment ($c=\infty$). We estimate these weights by looking at the fraction of a population which is receiving treatment at the beginning of our dataset, and the fraction that the access curve appears to level out to (indicating this fraction will remain without the treatment). In between these two, we fit a loess function to the approximately monotonically increasing fraction which receive the treatment. We take the fitted values for each year, and treat them as the values of a cumulative mass function, and take the differences from year to year to be our probability mass function. We then scale the total mass of this interim period to equal $1-w_{c=-\infty}-w_{c=\infty}$. Now the total mass of the different c values is 1. 
+
+To find the distribution of cutoff dates, we used SEER registry data to find the fraction of black and white men who received either radiation or radical prostatectomy over time. This was done with a SEER*Stat rate session, where incidence among SEER 9 Registries was queried for age adjusted rates based on the 2000 US Standard Population. We selected for males, with cancer site "Prostate", and Stage of "Localized/Regional", diagnosed between 1983 and 2004. We then created a variable RP which denoted those with Therapy.Site specific surgery (1983-1997) values of 40, 50, 60, 70, or 80, as well as those with Therapy.RX Summ--Surg Prim Site (1998+) value of 50, 70, 80, or 90 to be "RP," or have undergone radical prostatectomy. Others were labeled "OTHER." To classify whether a patient received radiation therapy, we labeled those with Therapy.Radiation values of "Beam radiation," "Radioactive implants," "Radioisotopes," "Combination of beam with implants or isotopes," "Radiation, NOS method or source not specified," or "Other radiation (1973-1987 cases only)" as "RT," and those without one of those classifications as "OTHER." 
+
+In order to estimate parameters for the distributions of the state changes (incidence and survival), we used SEER registry data as well. 
+
+To find the incidence parameter, we ran a SEER rate session, selecting for men, and calculating the rate of prostate cancer diagnosis among black and white men for those diagnosed between 1980 and 1986. This was used as our parameter. 
+
+For the survival parameter, we ran a SEER case listing session, selecting for men diagnosed with local/regional or metastatic prostate cancer, diagnosed between 1980 and 1986, labelling race, month and year of  diagnosis, month and year at the last data point, and whether or not they died of prostate cancer at this point. Thus we were able to determine the number of months or survival past diagnosis. In order to estimate the survival, we fit a Kaplan Meier curve to our case listing data. Assuming an exponential distribution, and knowing the point at which 50% survival is reached, we can find the parameter of the distribution, using the quantile function $q = \frac{-ln(1-F)}{\lambda}$, where F is 0.5, q is our median year, and solving for $\lambda$.
+
+
+
+## Results
+
+
+
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+library(msm)
+library(plyr)
+```
+
+```{r functions, include = FALSE}
+find_density <- function(the_time, c, oldrate, newrate ){
+  pmat_c = MatrixExp(oldrate, t = c)
+  pmat_t = MatrixExp(oldrate, t = the_time)
+  pmat_t_c = MatrixExp(oldrate, t = (the_time-c))
+  pmat_t_c_new = MatrixExp(newrate, t = (the_time-c))
+  
+  if(the_time<c){
+    dens = pmat_t[1,2]*oldrate[2,3]  
+  }else{
+    dens = pmat_c[1,2]*pmat_t_c[2,2]*oldrate[2,3]+pmat_c[1,1]*pmat_t_c_new[1,2]*newrate[2,3]
+  }
+  return(dens)
+}
+
+find_cdf <- function(the_time, c, oldrate, newrate ){
+  pmat_c = MatrixExp(oldrate, t = c)
+  pmat_t = MatrixExp(oldrate, t = the_time)
+  pmat_t_c = MatrixExp(oldrate, t = (the_time-c))
+  pmat_t_c_new = MatrixExp(newrate, t = (the_time-c))
+  
+  if(the_time<c){
+    cdf = pmat_t[1,3]
+  }else{
+    cdf = pmat_c[1,3]+pmat_c[1,2]*pmat_t_c[2,3]+pmat_c[1,1]*pmat_t_c_new[1,3]
+  }
+  return(cdf)
+}
+
+observe_pop <- function(lower, upper, c, oldrate, newrate){
+  d <- data.frame(x = seq(lower, upper),
+                  cdf = unlist(lapply(seq(lower, upper), FUN = "find_cdf", c = c, oldrate = oldrate, newrate = newrate)),
+                  pdf = unlist(lapply(seq(lower, upper), FUN = "find_density", c = c,oldrate = oldrate, newrate = newrate)))
+  d <- d %>% mutate(haz = pdf/(1-cdf))
+  return(d)
+}
+
+compare_pops <- function(lower, upper, c, loldrate, lnewrate, holdrate, hnewrate){
+  d <- data.frame(x = seq(lower, upper),
+                  lcdf = unlist(lapply(seq(lower, upper), FUN = "find_cdf", c = c, oldrate = loldrate, newrate = lnewrate)),
+                  lpdf = unlist(lapply(seq(lower, upper), FUN = "find_density", c = c,oldrate = loldrate, newrate = lnewrate)),
+                  hcdf = unlist(lapply(seq(lower, upper), FUN = "find_cdf", c = c, oldrate = holdrate, newrate = hnewrate)),
+                  hpdf = unlist(lapply(seq(lower, upper), FUN = "find_density", c = c,oldrate = holdrate, newrate = hnewrate)))
+  
+  d <- d %>% mutate(lhaz = lpdf/(1-lcdf),
+                    hhaz = hpdf/(1-hcdf),
+                    rat = hhaz/lhaz,
+                    diff = hhaz-lhaz)
+  return(d)
+}
+```
+
+
+
+Viewing one birth cohort with a single treatment cutoff year, with our estimated incidence parameter of 0.001106843 in whites and 0.001685501 in blacks, and our estimated survival parameter of 0.0378769 in blacks, and 0.03179574 in whites. We assumed a hazard ratio of 0.6 as the effectiveness of the treatment, introduced at year 200, we can look at modeled survival, hazard, relative and absolute risk disparity. 
+
+```{r hazard_one_cohort, echo = FALSE, warning = FALSE}
+loldrate <- matrix(c(-0.001106843, 0.001106843, 0,0, -0.03179574, 0.03179574, 0, 0, 0), nrow = 3, byrow = TRUE)
+lnewrate <- matrix(c(-0.001106843, 0.001106843, 0,0, -0.03179574*0.6, 0.03179574*0.6, 0, 0, 0),nrow = 3, byrow = TRUE)
+holdrate <- matrix(c(-0.001685501, 0.001685501, 0,0, -0.0378769, 0.0378769, 0, 0, 0), nrow = 3, byrow = TRUE)
+hnewrate <- matrix(c(-0.001685501, 0.001685501, 0,0, -0.0378769*0.6, 0.0378769*0.6, 0, 0, 0), nrow = 3, byrow = TRUE)
+
+
+d <- compare_pops(lower = 0, upper = 400, c = 200, loldrate = loldrate, lnewrate = lnewrate, holdrate = holdrate, hnewrate = hnewrate)
+dat <- d %>% dplyr::select(x, pdf = lpdf, cdf = lcdf, haz = lhaz) %>% mutate(Risk = "Lower Risk")
+dat <- d %>% dplyr::select(x, pdf = hpdf, cdf = hcdf, haz = hhaz) %>% mutate(Risk = "Higher Risk") %>% rbind(dat)
+
+print(ggplot(data = dat, aes(x = x, y = pdf, color = Risk)) + geom_line() + labs(x = "Year", y = "Death Density", title = "PDF of Dying by Age"))
+
+print(ggplot(data = dat, aes(x = x, y = 1-cdf, color = Risk)) + geom_line() + labs(x = "Year", y = "Survival", title = "Survival by Age"))
+
+print(ggplot(data = dat, aes(x = x, y = haz, color = Risk)) + geom_line() + labs(x = "Year", y = "Hazard", title = "Hazard Functions by Age With Treatment"))
+
+print(ggplot(data = d, aes(x = x, y = rat)) + geom_line() + labs(x = "Year", y = "Risk Ratio", title = "Risk Ratio by Age With Treatment"))
+
+print(ggplot(data = d, aes(x = x, y = diff)) + geom_line() + labs(x = "Year", y = "Risk Difference", title = "Risk Difference by Age With Treatment"))
+
+```
